@@ -1,0 +1,54 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.logoWrapper {
+  position: relative;
+  display: inline-block;
+  max-width: 400px;
+  width: 100%;
+}
+
+.logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+}
+
+[data-theme='dark'] .logo {
+  /* Swap to light logo in dark mode */
+  content: url('/assets/logo/Novada_Logo_RGB_Warmlichtgrijs.svg');
+}
+
+.blocks {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.block {
+  position: absolute;
+  background-color: var(--color-secondary);
+  transform: translate(-50%, -50%);
+  opacity: 0.8;
+  border-radius: 2px;
+  transition: opacity 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .logo {
+    max-width: 280px;
+  }
+
+  .block {
+    opacity: 0.6;
+  }
+}
