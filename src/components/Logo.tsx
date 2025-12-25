@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import styles from './Logo.module.css';
 
 interface LogoProps {
@@ -8,10 +8,35 @@ interface LogoProps {
 }
 
 export function Logo({
-  logoSrc = '/assets/logo/Novada_Logo_RGB_Donkerblauw.svg',
+  logoSrc,
   logoAlt = 'NovAda Logo',
   onPositionChange,
 }: LogoProps): React.JSX.Element {
+  const [currentTheme, setCurrentTheme] = useState<string>(
+    document.documentElement.getAttribute('data-theme') || 'light'
+  );
+
+  // Observe theme changes
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      const theme = document.documentElement.getAttribute('data-theme') || 'light';
+      setCurrentTheme(theme);
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Determine logo src based on theme
+  const effectiveLogoSrc = logoSrc || (
+    currentTheme === 'dark'
+      ? '/assets/logo/Novada_Logo_RGB_Warmlichtgrijs.svg'
+      : '/assets/logo/Novada_Logo_RGB_Donkerblauw.svg'
+  );
   const logoRef = useRef<HTMLImageElement>(null);
 
   // Report logo center position to parent
@@ -45,7 +70,7 @@ export function Logo({
   return (
     <div className={styles.container}>
       <div className={styles.logoWrapper}>
-        <img ref={logoRef} src={logoSrc} alt={logoAlt} className={styles.logo} />
+        <img ref={logoRef} src={effectiveLogoSrc} alt={logoAlt} className={styles.logo} />
       </div>
     </div>
   );

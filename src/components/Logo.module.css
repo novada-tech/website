@@ -22,11 +22,6 @@
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
 }
 
-[data-theme='dark'] .logo {
-  /* Swap to light logo in dark mode */
-  content: url('/assets/logo/Novada_Logo_RGB_Warmlichtgrijs.svg');
-}
-
 @media (max-width: 768px) {
   .logoWrapper {
     max-width: 280px;
