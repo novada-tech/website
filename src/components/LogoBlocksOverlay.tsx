@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { defaultBlockPositions } from '../config/logoBlocks';
 import { useViewportDimensions } from '../hooks/useViewportDimensions';
 import { useThemeObserver } from '../hooks/useThemeObserver';
-import { getCSSColor, clearCanvas, gridToPixels } from '../utils/canvas';
+import { getCSSColor, clearCanvas, gridToPixels, drawCellWithOffset } from '../utils/canvas';
 import type { BlockPosition } from '../config/logoBlocks';
 import styles from './LogoBlocksOverlay.module.css';
 
@@ -35,14 +35,12 @@ export function LogoBlocksOverlay({
     const snappedCenterX = Math.round(centerX / gridToPixels(1)) * gridToPixels(1);
     const snappedCenterY = Math.round(centerY / gridToPixels(1)) * gridToPixels(1);
 
-    ctx.fillStyle = blockColor;
-
     // Use for loop instead of forEach for better performance
     for (let i = 0; i < blocks.length; i++) {
       const block = blocks[i]!;
       const pixelX = snappedCenterX + gridToPixels(block.x);
       const pixelY = snappedCenterY + gridToPixels(block.y);
-      ctx.fillRect(pixelX, pixelY, gridToPixels(1) - 1, gridToPixels(1) - 1);
+      drawCellWithOffset(ctx, pixelX, pixelY, blockColor);
     }
   }, [blocks, dimensions, centerX, centerY, blockColor]);
 

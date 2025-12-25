@@ -4,6 +4,7 @@ import { ConwayBackground } from './components/ConwayBackground';
 import { LogoBlocksOverlay } from './components/LogoBlocksOverlay';
 import { Logo } from './components/Logo';
 import { Contact } from './components/Contact';
+import { CONWAY_UPDATE_INTERVAL } from './config/constants';
 import styles from './App.module.css';
 
 export function App(): React.JSX.Element {
@@ -21,7 +22,7 @@ export function App(): React.JSX.Element {
 
   return (
     <div className={styles.app}>
-      <ConwayBackground />
+      <ConwayBackground updateInterval={CONWAY_UPDATE_INTERVAL} />
       <LogoBlocksOverlay centerX={logoPosition.x} centerY={logoPosition.y} />
 
       <button

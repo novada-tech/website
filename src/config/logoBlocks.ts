@@ -15,40 +15,19 @@ export interface BlockPosition {
  * Adjust these coordinates to customize the layout
  */
 export const defaultBlockPositions: BlockPosition[] = [
-  // Top left cluster
-  { x: -9, y: -6 },
-  { x: -8, y: -6 },
-  { x: -7, y: -6 },
-  { x: -9, y: -5 },
-  { x: -7, y: -5 },
-
   // Top right cluster
-  { x: 7, y: -6 },
-  { x: 8, y: -6 },
-  { x: 9, y: -6 },
-  { x: 7, y: -5 },
-  { x: 9, y: -5 },
+  { x: 5, y: -2 },
+  { x: 6, y: -1 },
+
+  // Top middle cluster
+  { x: -2, y: -2 },
+  { x: -3, y: -2 },
+
+  // Bottom middle cluster
+  { x: -1, y: 2 },
+  { x: 0, y: 2 },
 
   // Bottom left cluster
-  { x: -9, y: 5 },
-  { x: -8, y: 5 },
-  { x: -7, y: 5 },
-  { x: -9, y: 6 },
-  { x: -7, y: 6 },
-
-  // Bottom right cluster
-  { x: 7, y: 5 },
-  { x: 8, y: 5 },
-  { x: 9, y: 5 },
-  { x: 7, y: 6 },
-  { x: 9, y: 6 },
-
-  // Side clusters
-  { x: -10, y: -1 },
-  { x: -10, y: 0 },
-  { x: -10, y: 1 },
-
-  { x: 10, y: -1 },
-  { x: 10, y: 0 },
-  { x: 10, y: 1 },
+  { x: -6, y: 2 },
+  { x: -7, y: 1 },
 ];

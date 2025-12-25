@@ -10,7 +10,7 @@ export function Contact(): React.JSX.Element {
 
   // Email parts stored separately and assembled on user action
   const emailParts = {
-    user: 'info',
+    user: 'simon.cockx',
     domain: 'novada',
     tld: 'be',
   };

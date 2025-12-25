@@ -1,4 +1,5 @@
-import { CELL_SIZE } from '../config/constants';
+import { CELL_SIZE, GRID_OFFSET_X, GRID_OFFSET_Y } from '../config/constants';
+import type { Grid } from './conway';
 
 /**
  * Canvas utilities for drawing grid-based content
@@ -92,4 +93,45 @@ export function calculateGridDimensions(width: number, height: number): { cols: 
     cols: Math.ceil(width / CELL_SIZE),
     rows: Math.ceil(height / CELL_SIZE),
   };
+}
+
+/**
+ * Renders a Conway grid to the canvas with background and cells
+ * Applies grid offsets automatically
+ */
+export function renderConwayGrid(
+  canvas: HTMLCanvasElement,
+  ctx: CanvasRenderingContext2D,
+  grid: Grid,
+  bgColor: string,
+  cellColor: string,
+  cellAlpha: number = 0.15
+): void {
+  clearCanvas(canvas, ctx);
+  fillCanvas(canvas, ctx, bgColor);
+
+  ctx.fillStyle = cellColor;
+  ctx.globalAlpha = cellAlpha;
+  for (let i = 0; i < grid.length; i++) {
+    const row = grid[i]!;
+    for (let j = 0; j < row.length; j++) {
+      if (row[j]) {
+        ctx.fillRect(j * CELL_SIZE + GRID_OFFSET_X, i * CELL_SIZE + GRID_OFFSET_Y, CELL_SIZE - 1, CELL_SIZE - 1);
+      }
+    }
+  }
+  ctx.globalAlpha = 1;
+}
+
+/**
+ * Draws a cell at a specific pixel position with grid offset applied
+ */
+export function drawCellWithOffset(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  color: string
+): void {
+  ctx.fillStyle = color;
+  ctx.fillRect(x + GRID_OFFSET_X, y + GRID_OFFSET_Y, CELL_SIZE - 1, CELL_SIZE - 1);
 }

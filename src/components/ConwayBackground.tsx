@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { createRandomGrid, createEmptyGrid, nextGenerationInPlace, isGridEmpty } from '../utils/conway';
 import { useViewportDimensions } from '../hooks/useViewportDimensions';
-import { getCSSColor, clearCanvas, fillCanvas, calculateGridDimensions } from '../utils/canvas';
+import { getCSSColor, renderConwayGrid, calculateGridDimensions } from '../utils/canvas';
 import type { Grid } from '../utils/conway';
 import styles from './ConwayBackground.module.css';
 
@@ -51,6 +51,13 @@ export function ConwayBackground({
       attributeFilter: ['data-theme'],
     });
 
+    // Initial render before animation loop starts
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext('2d');
+    if (canvas && ctx && gridARef.current) {
+      renderConwayGrid(canvas, ctx, gridARef.current, bgColor, cellColor);
+    }
+
     const animate = (timestamp: number): void => {
       // Control update frequency
       if (timestamp - lastUpdateRef.current < updateInterval) {
@@ -89,22 +96,7 @@ export function ConwayBackground({
       const gridToRender = useGridARef.current ? gridARef.current : gridBRef.current;
 
       if (canvas && ctx && gridToRender) {
-        // Clear and fill background
-        clearCanvas(canvas, ctx);
-        fillCanvas(canvas, ctx, bgColor);
-
-        // Draw alive cells using cached color and for loops
-        ctx.fillStyle = cellColor;
-        ctx.globalAlpha = 0.15;
-        for (let i = 0; i < gridToRender.length; i++) {
-          const row = gridToRender[i]!;
-          for (let j = 0; j < row.length; j++) {
-            if (row[j]) {
-              ctx.fillRect(j * 20, i * 20, 19, 19);
-            }
-          }
-        }
-        ctx.globalAlpha = 1;
+        renderConwayGrid(canvas, ctx, gridToRender, bgColor, cellColor);
       }
 
       animationFrameRef.current = requestAnimationFrame(animate);

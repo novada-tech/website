@@ -6,4 +6,17 @@
  * Size of each cell in pixels
  * Used for both Conway's Game of Life background and logo decorative blocks
  */
-export const CELL_SIZE = 20;
+export const CELL_SIZE = 32;
+
+/**
+ * Pixel offset for all grid cells (x and y)
+ * Allows fine-tuning grid alignment across the entire viewport
+ */
+export const GRID_OFFSET_X = -10;
+export const GRID_OFFSET_Y = -10;
+
+/**
+ * Update interval for Conway's Game of Life simulation (in milliseconds)
+ * Controls how frequently the simulation advances to the next generation
+ */
+export const CONWAY_UPDATE_INTERVAL = 1000;
