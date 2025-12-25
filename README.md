@@ -1,16 +1,6 @@
 # NovAda Website
 
-A modern, minimalist placeholder website featuring an animated Conway's Game of Life background with configurable decorative blocks around the logo.
-
-## Features
-
-- 🎨 **Animated Background**: Conway's Game of Life simulation running subtly in the background
-- 🎯 **Configurable Logo Blocks**: Decorative blocks positioned around the logo, easily customizable
-- 🌓 **Theme Support**: Light and dark themes with automatic system preference detection
-- 🛡️ **Anti-Scraper Contact**: Protected contact information to reduce spam
-- ⚡ **Modern Stack**: Built with React, TypeScript, and Vite
-- ✅ **Well-Tested**: Comprehensive test coverage with Vitest
-- 📦 **Production Ready**: Optimized build with Express server
+Please find me at [novada.be](https://novada.be)!
 
 ## Tech Stack
 

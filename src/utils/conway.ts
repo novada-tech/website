@@ -55,25 +55,37 @@ export function countNeighbors(grid: Grid, row: number, col: number): number {
 
 /**
  * Computes the next generation of the grid
+ * Mutates targetGrid to avoid memory allocations
+ */
+export function nextGenerationInPlace(sourceGrid: Grid, targetGrid: Grid): void {
+  const rows = sourceGrid.length;
+  const cols = sourceGrid[0]?.length ?? 0;
+
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      const neighbors = countNeighbors(sourceGrid, row, col);
+      const isAlive = sourceGrid[row]?.[col] ?? false;
+
+      if (isAlive && (neighbors === 2 || neighbors === 3)) {
+        targetGrid[row]![col] = true;
+      } else if (!isAlive && neighbors === 3) {
+        targetGrid[row]![col] = true;
+      } else {
+        targetGrid[row]![col] = false;
+      }
+    }
+  }
+}
+
+/**
+ * Computes the next generation of the grid (deprecated - use nextGenerationInPlace)
+ * @deprecated Use nextGenerationInPlace for better performance
  */
 export function nextGeneration(grid: Grid): Grid {
   const rows = grid.length;
   const cols = grid[0]?.length ?? 0;
   const newGrid = createEmptyGrid(rows, cols);
-
-  for (let row = 0; row < rows; row++) {
-    for (let col = 0; col < cols; col++) {
-      const neighbors = countNeighbors(grid, row, col);
-      const isAlive = grid[row]?.[col] ?? false;
-
-      if (isAlive && (neighbors === 2 || neighbors === 3)) {
-        newGrid[row]![col] = true;
-      } else if (!isAlive && neighbors === 3) {
-        newGrid[row]![col] = true;
-      }
-    }
-  }
-
+  nextGenerationInPlace(grid, newGrid);
   return newGrid;
 }
 

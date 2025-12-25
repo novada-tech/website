@@ -1,19 +1,28 @@
+import { useState, useCallback } from 'react';
 import { useTheme } from './hooks/useTheme';
 import { ConwayBackground } from './components/ConwayBackground';
+import { LogoBlocksOverlay } from './components/LogoBlocksOverlay';
 import { Logo } from './components/Logo';
 import { Contact } from './components/Contact';
 import styles from './App.module.css';
 
 export function App(): React.JSX.Element {
   const [theme, setTheme] = useTheme();
+  const [logoPosition, setLogoPosition] = useState({ x: 0, y: 0 });
 
   const toggleTheme = (): void => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
+  // Memoize callback to prevent Logo effect from recreating
+  const handleLogoPositionChange = useCallback((x: number, y: number): void => {
+    setLogoPosition({ x, y });
+  }, []);
+
   return (
     <div className={styles.app}>
       <ConwayBackground />
+      <LogoBlocksOverlay centerX={logoPosition.x} centerY={logoPosition.y} />
 
       <button
         onClick={toggleTheme}
@@ -25,7 +34,7 @@ export function App(): React.JSX.Element {
       </button>
 
       <main className={styles.main}>
-        <Logo />
+        <Logo onPositionChange={handleLogoPositionChange} />
       </main>
 
       <Contact />

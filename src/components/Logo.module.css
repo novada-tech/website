@@ -27,28 +27,8 @@
   content: url('/assets/logo/Novada_Logo_RGB_Warmlichtgrijs.svg');
 }
 
-.blocks {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-.block {
-  position: absolute;
-  background-color: var(--color-secondary);
-  transform: translate(-50%, -50%);
-  opacity: 0.8;
-  border-radius: 2px;
-  transition: opacity 0.3s ease;
-}
-
 @media (max-width: 768px) {
-  .logo {
+  .logoWrapper {
     max-width: 280px;
-  }
-
-  .block {
-    opacity: 0.6;
   }
 }
