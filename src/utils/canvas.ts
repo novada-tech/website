@@ -5,17 +5,12 @@ import type { Grid } from './conway';
  * Canvas utilities for drawing grid-based content
  */
 
-export interface GridPosition {
-  x: number; // grid column
-  y: number; // grid row
-}
-
 /**
- * Gets the CSS variable color value from the document
+ * Gets the CSS property value from the document
  */
-export function getCSSColor(variableName: string): string {
+export function getCSSProperty(propertyName: string): string {
   const computedStyle = getComputedStyle(document.documentElement);
-  return computedStyle.getPropertyValue(variableName).trim();
+  return computedStyle.getPropertyValue(propertyName).trim();
 }
 
 /**
@@ -105,7 +100,7 @@ export function renderConwayGrid(
   grid: Grid,
   bgColor: string,
   cellColor: string,
-  cellAlpha: number = 0.15
+  cellAlpha: number = 1
 ): void {
   clearCanvas(canvas, ctx);
   fillCanvas(canvas, ctx, bgColor);

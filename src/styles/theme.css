@@ -2,6 +2,7 @@
   /* Light theme colors */
   --color-primary: #211c40;
   --color-secondary: #332b80;
+  --conway-alpha: 0.15;
   --color-background: #ececec;
   --color-text: #211c40;
   --color-accent: #ffffff;
@@ -11,6 +12,7 @@
   /* Dark theme colors */
   --color-primary: #ececec;
   --color-secondary: #332b80;
+  --conway-alpha: 0.25;
   --color-background: #211c40;
   --color-text: #ececec;
   --color-accent: #000000;

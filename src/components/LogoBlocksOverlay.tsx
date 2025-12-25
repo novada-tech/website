@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { defaultBlockPositions } from '../config/logoBlocks';
 import { useViewportDimensions } from '../hooks/useViewportDimensions';
 import { useThemeObserver } from '../hooks/useThemeObserver';
-import { getCSSColor, clearCanvas, gridToPixels, drawCellWithOffset } from '../utils/canvas';
+import { getCSSProperty, clearCanvas, gridToPixels, drawCellWithOffset } from '../utils/canvas';
 import type { BlockPosition } from '../config/logoBlocks';
 import styles from './LogoBlocksOverlay.module.css';
 
@@ -21,7 +21,7 @@ export function LogoBlocksOverlay({
   const dimensions = useViewportDimensions();
 
   // Cache color to avoid repeated getComputedStyle
-  const [blockColor, setBlockColor] = React.useState(getCSSColor('--color-secondary'));
+  const [blockColor, setBlockColor] = React.useState(getCSSProperty('--color-secondary'));
 
   // Draw blocks function
   const drawBlocks = useCallback(() => {
@@ -51,7 +51,7 @@ export function LogoBlocksOverlay({
 
   // Update color on theme change (stable callback)
   useThemeObserver(useCallback(() => {
-    setBlockColor(getCSSColor('--color-secondary'));
+    setBlockColor(getCSSProperty('--color-secondary'));
   }, []));
 
   return (

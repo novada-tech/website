@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { createRandomGrid, createEmptyGrid, nextGenerationInPlace, isGridEmpty } from '../utils/conway';
 import { useViewportDimensions } from '../hooks/useViewportDimensions';
-import { getCSSColor, renderConwayGrid, calculateGridDimensions } from '../utils/canvas';
+import { getCSSProperty, renderConwayGrid, calculateGridDimensions } from '../utils/canvas';
 import type { Grid } from '../utils/conway';
 import styles from './ConwayBackground.module.css';
 
@@ -36,13 +36,23 @@ export function ConwayBackground({
     }
 
     // Cache colors to avoid repeated getComputedStyle calls
-    let bgColor = getCSSColor('--color-background');
-    let cellColor = getCSSColor('--color-secondary');
+    let bgColor = getCSSProperty('--color-background');
+    let cellColor = getCSSProperty('--color-secondary');
+    let alpha = parseFloat(getCSSProperty('--conway-alpha'));
 
-    // Update cached colors on theme change
+    // Update cached colors on theme change and redraw immediately
     const updateColors = (): void => {
-      bgColor = getCSSColor('--color-background');
-      cellColor = getCSSColor('--color-secondary');
+      bgColor = getCSSProperty('--color-background');
+      cellColor = getCSSProperty('--color-secondary');
+      alpha = parseFloat(getCSSProperty('--conway-alpha'));
+
+      // Force immediate redraw with new colors
+      const canvas = canvasRef.current;
+      const ctx = canvas?.getContext('2d');
+      const gridToRender = useGridARef.current ? gridARef.current : gridBRef.current;
+      if (canvas && ctx && gridToRender) {
+        renderConwayGrid(canvas, ctx, gridToRender, bgColor, cellColor, alpha);
+      }
     };
 
     const observer = new MutationObserver(updateColors);
@@ -55,7 +65,7 @@ export function ConwayBackground({
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
     if (canvas && ctx && gridARef.current) {
-      renderConwayGrid(canvas, ctx, gridARef.current, bgColor, cellColor);
+      renderConwayGrid(canvas, ctx, gridARef.current, bgColor, cellColor, alpha);
     }
 
     const animate = (timestamp: number): void => {
@@ -96,7 +106,7 @@ export function ConwayBackground({
       const gridToRender = useGridARef.current ? gridARef.current : gridBRef.current;
 
       if (canvas && ctx && gridToRender) {
-        renderConwayGrid(canvas, ctx, gridToRender, bgColor, cellColor);
+        renderConwayGrid(canvas, ctx, gridToRender, bgColor, cellColor, alpha);
       }
 
       animationFrameRef.current = requestAnimationFrame(animate);
