@@ -31,7 +31,7 @@ global.ResizeObserver = class ResizeObserver {
 
 // Mock MutationObserver
 global.MutationObserver = class MutationObserver {
-  constructor(callback: MutationCallback) {}
+  constructor(_callback: MutationCallback) {}
   observe() {}
   disconnect() {}
   takeRecords() {

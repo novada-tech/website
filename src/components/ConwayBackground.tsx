@@ -1,5 +1,10 @@
 import { useEffect, useRef, useMemo } from 'react';
-import { createRandomGrid, createEmptyGrid, nextGenerationInPlace, isGridEmpty } from '../utils/conway';
+import {
+  createRandomGrid,
+  createEmptyGrid,
+  nextGenerationInPlace,
+  isGridEmpty,
+} from '../utils/conway';
 import { useResponsiveCellSize } from '../hooks/useResponsiveCellSize';
 import { useContainerDimensions } from '../hooks/useContainerDimensions';
 import { getCSSProperty, renderConwayGrid, calculateGridDimensions } from '../utils/canvas';

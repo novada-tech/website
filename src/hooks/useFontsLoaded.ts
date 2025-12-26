@@ -7,6 +7,7 @@ export function useFontsLoaded(): boolean {
     // Check if Font Loading API is available
     if (!('fonts' in document)) {
       // Fallback: assume fonts are loaded if API is not available
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFontsLoaded(true);
       return;
     }

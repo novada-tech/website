@@ -27,11 +27,11 @@ export const Logo = memo(function Logo({
   }, []);
 
   // Determine logo src based on theme
-  const effectiveLogoSrc = logoSrc || (
-    currentTheme === 'dark'
+  const effectiveLogoSrc =
+    logoSrc ||
+    (currentTheme === 'dark'
       ? '/assets/logo/Novada_Logo_RGB_Warmlichtgrijs.svg'
-      : '/assets/logo/Novada_Logo_RGB_Donkerblauw.svg'
-  );
+      : '/assets/logo/Novada_Logo_RGB_Donkerblauw.svg');
   const logoRef = useRef<HTMLImageElement>(null);
 
   /**

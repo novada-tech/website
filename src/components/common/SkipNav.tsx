@@ -9,14 +9,7 @@ import { COLORS, FONTS, FONT_WEIGHTS } from '../../config/layout';
  */
 export const SkipNav = memo(function SkipNav(): React.JSX.Element {
   return (
-    <Box
-      as="nav"
-      position="fixed"
-      top={0}
-      left={0}
-      zIndex={9999}
-      aria-label="Skip navigation"
-    >
+    <Box as="nav" position="fixed" top={0} left={0} zIndex={9999} aria-label="Skip navigation">
       <Link
         href="#main-content"
         position="absolute"

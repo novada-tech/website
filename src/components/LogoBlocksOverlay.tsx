@@ -35,8 +35,10 @@ export function LogoBlocksOverlay({
     clearCanvas(canvas, ctx);
 
     // Snap center position to grid for perfect alignment
-    const snappedCenterX = Math.round(centerX / gridToPixels(1, cellSize)) * gridToPixels(1, cellSize);
-    const snappedCenterY = Math.round(centerY / gridToPixels(1, cellSize)) * gridToPixels(1, cellSize);
+    const snappedCenterX =
+      Math.round(centerX / gridToPixels(1, cellSize)) * gridToPixels(1, cellSize);
+    const snappedCenterY =
+      Math.round(centerY / gridToPixels(1, cellSize)) * gridToPixels(1, cellSize);
 
     // Use for loop instead of forEach for better performance
     for (let i = 0; i < blocks.length; i++) {
@@ -53,9 +55,11 @@ export function LogoBlocksOverlay({
   }, [drawBlocks]);
 
   // Update color on theme change (stable callback)
-  useThemeObserver(useCallback(() => {
-    setBlockColor(getCSSProperty('--color-secondary'));
-  }, []));
+  useThemeObserver(
+    useCallback(() => {
+      setBlockColor(getCSSProperty('--color-secondary'));
+    }, [])
+  );
 
   return (
     <div ref={containerRef} className={styles.container}>

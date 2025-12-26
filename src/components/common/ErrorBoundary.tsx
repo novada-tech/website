@@ -99,18 +99,8 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
               Try Again
             </Button>
             {import.meta.env.DEV && this.state.error && (
-              <Box
-                mt={6}
-                p={4}
-                bg="rgba(255, 0, 0, 0.1)"
-                borderRadius="md"
-                textAlign="left"
-              >
-                <Text
-                  fontSize="sm"
-                  fontFamily="monospace"
-                  color={COLORS.TEXT}
-                >
+              <Box mt={6} p={4} bg="rgba(255, 0, 0, 0.1)" borderRadius="md" textAlign="left">
+                <Text fontSize="sm" fontFamily="monospace" color={COLORS.TEXT}>
                   {this.state.error.toString()}
                 </Text>
               </Box>

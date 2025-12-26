@@ -16,9 +16,7 @@ describe('ConwayBackground', () => {
   });
 
   it('should accept custom props', () => {
-    const { container } = render(
-      <ConwayBackground updateInterval={100} density={0.2} />
-    );
+    const { container } = render(<ConwayBackground updateInterval={100} density={0.2} />);
     const canvas = container.querySelector('canvas');
     expect(canvas).toBeInTheDocument();
   });

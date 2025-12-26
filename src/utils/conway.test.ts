@@ -17,7 +17,7 @@ describe('Conway Game of Life', () => {
 
     it('should create a grid with all dead cells', () => {
       const grid = createEmptyGrid(2, 2);
-      expect(grid.every(row => row.every(cell => !cell))).toBe(true);
+      expect(grid.every((row) => row.every((cell) => !cell))).toBe(true);
     });
   });
 
@@ -30,7 +30,7 @@ describe('Conway Game of Life', () => {
 
     it('should create a grid with some alive cells when density > 0', () => {
       const grid = createRandomGrid(10, 10, 0.5);
-      const hasAliveCells = grid.some(row => row.some(cell => cell));
+      const hasAliveCells = grid.some((row) => row.some((cell) => cell));
       expect(hasAliveCells).toBe(true);
     });
   });

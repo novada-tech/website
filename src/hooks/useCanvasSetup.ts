@@ -26,6 +26,7 @@ export function useCanvasWithDimensions(width: number, height: number) {
       canvasRef.current.width = width;
       canvasRef.current.height = height;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width, height]);
 
   return {

@@ -23,12 +23,7 @@ export const LoadingState = memo(function LoadingState({
       aria-busy="true"
     >
       <VStack gap={4}>
-        {showSpinner && (
-          <Spinner
-            size="xl"
-            color={COLORS.SECONDARY}
-          />
-        )}
+        {showSpinner && <Spinner size="xl" color={COLORS.SECONDARY} />}
         {message && (
           <Text
             fontFamily={FONTS.BODY}

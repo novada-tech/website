@@ -25,11 +25,7 @@ export const HeroBanner = memo(function HeroBanner({
       overflow="hidden"
       aria-label="Hero banner with animated background"
     >
-      <ConwayBackground
-        updateInterval={updateInterval}
-        density={density}
-        height="100%"
-      />
+      <ConwayBackground updateInterval={updateInterval} density={density} height="100%" />
       <LogoBlocksOverlay centerX={logoPosition.x} centerY={logoPosition.y} />
       <Box
         position="relative"

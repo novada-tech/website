@@ -11,10 +11,14 @@ import { CONWAY_UPDATE_INTERVAL } from './config/constants';
 import { DEFAULT_DENSITY } from './config/conway';
 
 // Lazy load sections below the fold for better initial load performance
-const About = lazy(() => import('./components/About').then(m => ({ default: m.About })));
-const Mission = lazy(() => import('./components/Mission').then(m => ({ default: m.Mission })));
-const PreviousWork = lazy(() => import('./components/PreviousWork').then(m => ({ default: m.PreviousWork })));
-const Contact = lazy(() => import('./components/Contact').then(m => ({ default: m.Contact })));
+const About = lazy(() => import('./components/About').then((m) => ({ default: m.About })));
+const Mission = lazy(() => import('./components/Mission').then((m) => ({ default: m.Mission })));
+const PreviousWork = lazy(() =>
+  import('./components/PreviousWork').then((m) => ({
+    default: m.PreviousWork,
+  }))
+);
+const Contact = lazy(() => import('./components/Contact').then((m) => ({ default: m.Contact })));
 
 export function App(): React.JSX.Element {
   const [theme, setTheme] = useTheme();

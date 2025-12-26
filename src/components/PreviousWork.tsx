@@ -26,16 +26,12 @@ export function PreviousWork(): React.JSX.Element {
       <Stack gap={CONTENT_GAP.LARGE} align="start">
         <SectionHeading>Previous Work</SectionHeading>
         <BodyText>
-          Here are some of the projects we've worked on, demonstrating our commitment
-          to excellence and continuous improvement.
+          Here are some of the projects we've worked on, demonstrating our commitment to excellence
+          and continuous improvement.
         </BodyText>
         <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={CONTENT_GAP.MEDIUM} w="full">
           {PROJECTS.map((project, index) => (
-            <ProjectCard
-              key={index}
-              title={project.title}
-              description={project.description}
-            />
+            <ProjectCard key={index} title={project.title} description={project.description} />
           ))}
         </SimpleGrid>
       </Stack>

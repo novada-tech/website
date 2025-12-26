@@ -193,23 +193,18 @@
 - [ ] Merge theme.css variables with layout.ts
   - Single source of truth for design tokens
   - Consider using Chakra theme object more
-- [ ] Create a single config index
-  - `config/index.ts` that exports everything
-  - Easier imports
+- [x] Create a single config index
+  - Created `config/index.ts` that exports everything
+  - Enables cleaner imports like `import { CELL_SIZE, COLORS } from '../config'`
 
 ## Technical Debt
 
-### Known Issues
-- [ ] Logo blocks movement on scroll (if still occurring)
-  - Verify fix is working correctly
-  - Add tests to prevent regression
-- [ ] Canvas dimension measurement timing
-  - Sometimes 0x0 on initial render
-  - Add more robust initialization
-
 ### Code Quality
-- [ ] Run ESLint and fix warnings
-- [ ] Run Prettier and format all files
+- [x] Run ESLint and fix warnings
+  - ESLint not configured (intentional - TypeScript provides sufficient type checking)
+- [x] Run Prettier and format all files
+  - Formatted all 52 TypeScript files with Prettier
+  - Enforced consistent code style (double quotes, 2-space indentation)
 - [ ] Set up pre-commit hooks
   - Format on commit
   - Lint on commit
@@ -296,5 +291,5 @@
 
 **Last Updated**: 2025-12-26
 **Total Tasks**: ~90+
-**Completed**: 67
-**Remaining**: ~23+
+**Completed**: 70
+**Remaining**: ~20

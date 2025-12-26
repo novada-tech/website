@@ -56,7 +56,11 @@ export function gridToPixels(gridCoord: number, cellSize: number = CELL_SIZE): n
  * @param cellSize - Size of each cell in pixels (defaults to CELL_SIZE constant)
  * @returns Object containing cols and rows counts
  */
-export function calculateGridDimensions(width: number, height: number, cellSize: number = CELL_SIZE): { cols: number; rows: number } {
+export function calculateGridDimensions(
+  width: number,
+  height: number,
+  cellSize: number = CELL_SIZE
+): { cols: number; rows: number } {
   return {
     cols: Math.ceil(width / cellSize),
     rows: Math.ceil(height / cellSize),
@@ -92,7 +96,12 @@ export function renderConwayGrid(
     const row = grid[i]!;
     for (let j = 0; j < row.length; j++) {
       if (row[j]) {
-        ctx.fillRect(j * cellSize + GRID_OFFSET_X, i * cellSize + GRID_OFFSET_Y, cellSize - CELL_GAP, cellSize - CELL_GAP);
+        ctx.fillRect(
+          j * cellSize + GRID_OFFSET_X,
+          i * cellSize + GRID_OFFSET_Y,
+          cellSize - CELL_GAP,
+          cellSize - CELL_GAP
+        );
       }
     }
   }

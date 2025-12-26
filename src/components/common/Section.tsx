@@ -1,6 +1,11 @@
 import { memo } from 'react';
 import { Box, Container } from '@chakra-ui/react';
-import { SECTION_PADDING_Y, CONTAINER_MAX_WIDTH, CONTAINER_PADDING_X, COLORS } from '../../config/layout';
+import {
+  SECTION_PADDING_Y,
+  CONTAINER_MAX_WIDTH,
+  CONTAINER_PADDING_X,
+  COLORS,
+} from '../../config/layout';
 import type { SectionProps } from '../../types/components';
 
 export const Section = memo(function Section({
@@ -9,11 +14,12 @@ export const Section = memo(function Section({
   as = 'section',
   withBorder = false,
 }: SectionProps): React.JSX.Element {
-  const containerMaxW = maxWidth === 'text'
-    ? CONTAINER_MAX_WIDTH.TEXT
-    : maxWidth === 'grid'
-    ? CONTAINER_MAX_WIDTH.GRID
-    : CONTAINER_MAX_WIDTH.FULL;
+  const containerMaxW =
+    maxWidth === 'text'
+      ? CONTAINER_MAX_WIDTH.TEXT
+      : maxWidth === 'grid'
+        ? CONTAINER_MAX_WIDTH.GRID
+        : CONTAINER_MAX_WIDTH.FULL;
 
   return (
     <Box

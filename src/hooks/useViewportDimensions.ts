@@ -10,7 +10,10 @@ export interface Dimensions {
  * Updates on window resize
  */
 export function useViewportDimensions(): Dimensions {
-  const [dimensions, setDimensions] = useState<Dimensions>({ width: 0, height: 0 });
+  const [dimensions, setDimensions] = useState<Dimensions>({
+    width: 0,
+    height: 0,
+  });
 
   useEffect(() => {
     const updateDimensions = (): void => {

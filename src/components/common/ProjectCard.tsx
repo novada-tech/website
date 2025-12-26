@@ -4,7 +4,10 @@ import { BodyText } from './BodyText';
 import { COLORS, FONTS, FONT_WEIGHTS, HEADING_SIZE } from '../../config/layout';
 import type { ProjectCardProps } from '../../types/components';
 
-export const ProjectCard = memo(function ProjectCard({ title, description }: ProjectCardProps): React.JSX.Element {
+export const ProjectCard = memo(function ProjectCard({
+  title,
+  description,
+}: ProjectCardProps): React.JSX.Element {
   return (
     <Box
       bg={COLORS.ACCENT}

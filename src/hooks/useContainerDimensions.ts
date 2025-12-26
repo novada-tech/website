@@ -5,10 +5,11 @@ interface Dimensions {
   height: number;
 }
 
-export function useContainerDimensions(
-  containerRef: RefObject<HTMLElement | null>
-): Dimensions {
-  const [dimensions, setDimensions] = useState<Dimensions>({ width: 0, height: 0 });
+export function useContainerDimensions(containerRef: RefObject<HTMLElement | null>): Dimensions {
+  const [dimensions, setDimensions] = useState<Dimensions>({
+    width: 0,
+    height: 0,
+  });
 
   useEffect(() => {
     if (!containerRef.current) return;

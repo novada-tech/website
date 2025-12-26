@@ -109,5 +109,5 @@ export function nextGeneration(grid: Grid): Grid {
  * @returns True if all cells are dead, false if any cell is alive
  */
 export function isGridEmpty(grid: Grid): boolean {
-  return grid.every(row => row.every(cell => !cell));
+  return grid.every((row) => row.every((cell) => !cell));
 }
