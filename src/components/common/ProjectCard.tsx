@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Box, Heading } from '@chakra-ui/react';
 import { BodyText } from './BodyText';
-import { COLORS, FONTS, FONT_WEIGHTS, HEADING_SIZE } from '../../config/layout';
+import { COLORS, FONTS, FONT_WEIGHTS, HEADING_SIZE } from '../../config';
 import type { ProjectCardProps } from '../../types/components';
 
 export const ProjectCard = memo(function ProjectCard({

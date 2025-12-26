@@ -2,7 +2,7 @@ import { Stack } from '@chakra-ui/react';
 import { Section } from './common/Section';
 import { SectionHeading } from './common/SectionHeading';
 import { BodyText } from './common/BodyText';
-import { CONTENT_GAP } from '../config/layout';
+import { CONTENT_GAP } from '../config';
 
 export function Mission(): React.JSX.Element {
   return (

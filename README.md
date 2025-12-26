@@ -4,11 +4,12 @@ Please find me at [novada.be](https://novada.be)!
 
 ## Tech Stack
 
-- **Frontend**: React 19 + TypeScript
+- **Frontend**: React 18 + TypeScript
 - **Build Tool**: Vite
 - **Testing**: Vitest + React Testing Library
 - **Server**: Express (Node.js)
-- **Styling**: CSS Modules
+- **Styling**: Chakra UI + CSS Modules
+- **Code Quality**: ESLint + Prettier
 
 ## Getting Started
 
@@ -76,82 +77,36 @@ npm start
 
 This will build the application and start the Express server on port 3000 (or the port specified in the `PORT` environment variable).
 
-## Customization
-
-### Logo Blocks Configuration
-
-Edit `src/config/logoBlocks.ts` to customize the decorative blocks around the logo:
-
-```typescript
-export const defaultBlockPositions: BlockPosition[] = [
-  { x: -180, y: -120 },  // x and y are pixels from logo center
-  { x: -160, y: -120 },
-  { x: -140, y: -120, size: 25 },  // optional custom size
-  // Add more blocks...
-];
-
-export const blockSize = 18; // Default block size in pixels
-```
-
-### Conway's Game of Life Settings
-
-Adjust the background animation in `src/components/ConwayBackground.tsx`:
-
-- `cellSize`: Size of each cell in pixels (default: 20)
-- `updateInterval`: Time between generations in ms (default: 150)
-- `density`: Initial population density 0-1 (default: 0.15)
+## Configuration
 
 ### Theme Colors
 
-Modify colors in `src/styles/theme.css`:
+Edit `src/styles/theme.css` to customize colors for light and dark themes.
 
-```css
-:root {
-  --color-primary: #211c40;    /* Deep blue */
-  --color-secondary: #332b80;  /* Digital purple */
-  --color-background: #ececec; /* Warm light gray */
-  --color-text: #211c40;
-  --color-accent: #ffffff;
-}
-```
+### Conway's Game of Life
 
-### Contact Information
+Adjust settings in `src/config/conway.ts` and `src/config/constants.ts`.
 
-Update the email in `src/components/Contact.tsx`:
+### Layout & Styling
 
-```typescript
-const emailParts = {
-  user: 'info',
-  domain: 'novada',
-  tld: 'be',
-};
-```
+Modify spacing and typography in `src/config/layout.ts`.
 
 ## Project Structure
 
 ```
 ├── src/
-│   ├── components/          # React components
-│   │   ├── ConwayBackground.tsx
-│   │   ├── Logo.tsx
-│   │   ├── Contact.tsx
-│   │   └── *.module.css
-│   ├── config/             # Configuration files
-│   │   └── logoBlocks.ts
-│   ├── hooks/              # Custom React hooks
-│   │   └── useTheme.ts
-│   ├── styles/             # Global styles
-│   │   └── theme.css
-│   ├── test/               # Test setup
-│   │   └── setup.ts
-│   ├── utils/              # Utility functions
-│   │   └── conway.ts       # Game of Life logic
-│   ├── App.tsx             # Main app component
-│   └── main.tsx            # App entry point
-├── assets/                 # Static assets
-│   └── logo/
-├── server.ts               # Production server
-├── index.html              # HTML template
+│   ├── components/       # React components
+│   │   ├── common/       # Reusable UI components
+│   │   └── ui/           # Chakra UI setup
+│   ├── config/           # Configuration constants
+│   ├── hooks/            # Custom React hooks
+│   ├── styles/           # Global styles
+│   ├── test/             # Test setup
+│   ├── types/            # TypeScript types
+│   ├── utils/            # Utility functions
+│   └── main.tsx          # App entry point
+├── public/               # Static assets
+├── server.ts             # Production server
 └── package.json
 ```
 
@@ -164,40 +119,14 @@ This project uses a dual-license approach:
 
 The source code is freely available under the MIT License, allowing you to use, modify, and distribute it. However, the NovAda name, logo, and branding materials are protected and may not be used without permission.
 
-## Browser Support
+## Features
 
-- Chrome/Edge (latest)
-- Firefox (latest)
-- Safari (latest)
-- Mobile browsers
-
-## Performance
-
-- Optimized canvas rendering for smooth 60fps animation
-- Lazy initialization of Game of Life grid
-- Efficient neighbor counting algorithm
-- Minimal bundle size with tree-shaking
-
-## Accessibility
-
-- Semantic HTML structure
-- ARIA labels for interactive elements
-- Keyboard navigation support
-- Theme toggle with descriptive labels
-- Canvas marked as decorative (aria-hidden)
-
-## Security
-
-The production server includes security headers:
-- X-Content-Type-Options: nosniff
-- X-Frame-Options: DENY
-- X-XSS-Protection: 1; mode=block
-- Referrer-Policy: strict-origin-when-cross-origin
-
-Contact information is protected with anti-scraping measures:
-- Email revealed only on user interaction
-- Split storage of email components
-- No direct mailto links in source
+- 🎨 Light/Dark theme support
+- 🎮 Interactive Conway's Game of Life background
+- ⚡ Lazy loading for optimal performance
+- ♿ Full accessibility support
+- 📱 Responsive design
+- 🔒 Security headers enabled
 
 ---
 

@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Box, Spinner, Text, VStack } from '@chakra-ui/react';
-import { FONTS, FONT_WEIGHTS, COLORS } from '../../config/layout';
+import { FONTS, FONT_WEIGHTS, COLORS } from '../../config';
 
 interface LoadingStateProps {
   readonly message?: string;

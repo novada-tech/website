@@ -5,7 +5,7 @@ import {
   CONTAINER_MAX_WIDTH,
   CONTAINER_PADDING_X,
   COLORS,
-} from '../../config/layout';
+} from '../../config';
 import type { SectionProps } from '../../types/components';
 
 export const Section = memo(function Section({

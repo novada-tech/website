@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Link as ChakraLink, LinkProps as ChakraLinkProps } from '@chakra-ui/react';
-import { COLORS, FONTS, FONT_WEIGHTS } from '../../config/layout';
+import { COLORS, FONTS, FONT_WEIGHTS } from '../../config';
 import { HOVER_STATES, FOCUS_STATE } from '../../utils/animations';
 
 interface LinkProps extends Omit<ChakraLinkProps, 'color'> {

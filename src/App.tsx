@@ -7,8 +7,8 @@ import { ErrorBoundary } from './components/common/ErrorBoundary';
 import { SkipNav } from './components/common/SkipNav';
 import { ThemeToggle } from './components/common/ThemeToggle';
 import { LoadingState } from './components/common/LoadingState';
-import { CONWAY_UPDATE_INTERVAL } from './config/constants';
-import { DEFAULT_DENSITY } from './config/conway';
+import { CONWAY_UPDATE_INTERVAL } from './config';
+import { DEFAULT_DENSITY } from './config';
 
 // Lazy load sections below the fold for better initial load performance
 const About = lazy(() => import('./components/About').then((m) => ({ default: m.About })));

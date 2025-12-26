@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Heading } from '@chakra-ui/react';
-import { COLORS, FONTS, FONT_WEIGHTS, HEADING_SIZE } from '../../config/layout';
+import { COLORS, FONTS, FONT_WEIGHTS, HEADING_SIZE } from '../../config';
 import type { SectionHeadingProps } from '../../types/components';
 
 export const SectionHeading = memo(function SectionHeading({

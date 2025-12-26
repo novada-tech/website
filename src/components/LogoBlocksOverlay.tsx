@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { defaultBlockPositions } from '../config/logoBlocks';
+import { defaultBlockPositions } from '../config';
 import { useResponsiveCellSize } from '../hooks/useResponsiveCellSize';
 import { useContainerDimensions } from '../hooks/useContainerDimensions';
 import { useThemeObserver } from '../hooks/useThemeObserver';
 import { getCSSProperty, clearCanvas, gridToPixels, drawCellWithOffset } from '../utils/canvas';
-import type { BlockPosition } from '../config/logoBlocks';
+import type { BlockPosition } from '../config';
 import styles from './LogoBlocksOverlay.module.css';
 
 interface LogoBlocksOverlayProps {

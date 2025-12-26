@@ -1,6 +1,6 @@
 import { Component, ReactNode } from 'react';
 import { Box, Heading, Text, Button } from '@chakra-ui/react';
-import { COLORS, FONTS, FONT_WEIGHTS, HEADING_SIZE } from '../../config/layout';
+import { COLORS, FONTS, FONT_WEIGHTS, HEADING_SIZE } from '../../config';
 
 interface ErrorBoundaryProps {
   children: ReactNode;

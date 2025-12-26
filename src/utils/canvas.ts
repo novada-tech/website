@@ -1,4 +1,4 @@
-import { CELL_SIZE, CELL_GAP, GRID_OFFSET_X, GRID_OFFSET_Y } from '../config/constants';
+import { CELL_SIZE, CELL_GAP, GRID_OFFSET_X, GRID_OFFSET_Y } from '../config';
 import type { Grid } from './conway';
 
 /**

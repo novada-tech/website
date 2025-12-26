@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Text } from '@chakra-ui/react';
-import { COLORS, FONTS, FONT_WEIGHTS, TEXT_SIZE } from '../../config/layout';
+import { COLORS, FONTS, FONT_WEIGHTS, TEXT_SIZE } from '../../config';
 import type { BodyTextProps } from '../../types/components';
 
 export const BodyText = memo(function BodyText({

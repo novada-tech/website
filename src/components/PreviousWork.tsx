@@ -3,7 +3,7 @@ import { Section } from './common/Section';
 import { SectionHeading } from './common/SectionHeading';
 import { BodyText } from './common/BodyText';
 import { ProjectCard } from './common/ProjectCard';
-import { CONTENT_GAP } from '../config/layout';
+import { CONTENT_GAP } from '../config';
 
 const PROJECTS = [
   {

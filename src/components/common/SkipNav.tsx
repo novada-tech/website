@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Box, Link } from '@chakra-ui/react';
-import { COLORS, FONTS, FONT_WEIGHTS } from '../../config/layout';
+import { COLORS, FONTS, FONT_WEIGHTS } from '../../config';
 
 /**
  * Skip navigation link for accessibility
