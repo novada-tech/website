@@ -61,6 +61,7 @@ export const FONT_WEIGHTS = {
 export const COLORS = {
   PRIMARY: 'var(--color-primary)',
   SECONDARY: 'var(--color-secondary)',
+  BLOCKS: 'var(--color-blocks)',
   BACKGROUND: 'var(--color-background)',
   TEXT: 'var(--color-text)',
   ACCENT: 'var(--color-accent)',

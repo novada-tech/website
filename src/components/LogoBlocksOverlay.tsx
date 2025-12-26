@@ -24,7 +24,7 @@ export function LogoBlocksOverlay({
   const dimensions = useContainerDimensions(containerRef);
 
   // Cache color to avoid repeated getComputedStyle
-  const [blockColor, setBlockColor] = useState(getCSSProperty('--color-secondary'));
+  const [blockColor, setBlockColor] = useState(getCSSProperty('--color-blocks'));
 
   // Draw blocks function
   const drawBlocks = useCallback(() => {
@@ -57,7 +57,7 @@ export function LogoBlocksOverlay({
   // Update color on theme change (stable callback)
   useThemeObserver(
     useCallback(() => {
-      setBlockColor(getCSSProperty('--color-secondary'));
+      setBlockColor(getCSSProperty('--color-blocks'));
     }, [])
   );
 

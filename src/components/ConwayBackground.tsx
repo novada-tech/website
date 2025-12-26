@@ -51,13 +51,13 @@ export function ConwayBackground({
 
     // Cache colors to avoid repeated getComputedStyle calls
     let bgColor = getCSSProperty('--color-background');
-    let cellColor = getCSSProperty('--color-secondary');
+    let cellColor = getCSSProperty('--color-blocks');
     let alpha = parseFloat(getCSSProperty('--conway-alpha'));
 
     // Update cached colors on theme change and redraw immediately
     const updateColors = (): void => {
       bgColor = getCSSProperty('--color-background');
-      cellColor = getCSSProperty('--color-secondary');
+      cellColor = getCSSProperty('--color-blocks');
       alpha = parseFloat(getCSSProperty('--conway-alpha'));
 
       // Force immediate redraw with new colors
