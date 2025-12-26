@@ -8,14 +8,12 @@ interface HeroBannerProps {
   readonly logoPosition: { x: number; y: number };
   readonly onLogoPositionChange: (x: number, y: number) => void;
   readonly updateInterval: number;
-  readonly density: number;
 }
 
 export const HeroBanner = memo(function HeroBanner({
   logoPosition,
   onLogoPositionChange,
   updateInterval,
-  density,
 }: HeroBannerProps): React.JSX.Element {
   return (
     <Box
@@ -25,7 +23,7 @@ export const HeroBanner = memo(function HeroBanner({
       overflow="hidden"
       aria-label="Hero banner with animated background"
     >
-      <ConwayBackground updateInterval={updateInterval} density={density} height="100%" />
+      <ConwayBackground updateInterval={updateInterval} height="100%" />
       <LogoBlocksOverlay centerX={logoPosition.x} centerY={logoPosition.y} />
       <Box
         position="relative"

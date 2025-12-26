@@ -3,9 +3,15 @@
  */
 
 /**
- * Default density for random grid initialization (0-1)
+ * Responsive density values for random grid initialization (0-1)
+ * Higher density on smaller screens for better visual presence
  */
-export const DEFAULT_DENSITY = 0.2;
+export const DEFAULT_DENSITY = {
+  BASE: 0.3, // Mobile devices
+  SM: 0.25, // Small tablets
+  MD: 0.20, // Medium screens (desktop)
+  LG: 0.15, // Large screens
+} as const;
 
 /**
  * Responsive cell size multipliers based on viewport width

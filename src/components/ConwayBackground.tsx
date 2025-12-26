@@ -6,6 +6,7 @@ import {
   isGridEmpty,
 } from '../utils/conway';
 import { useResponsiveCellSize } from '../hooks/useResponsiveCellSize';
+import { useResponsiveDensity } from '../hooks/useResponsiveDensity';
 import { useContainerDimensions } from '../hooks/useContainerDimensions';
 import { getCSSProperty, renderConwayGrid, calculateGridDimensions } from '../utils/canvas';
 import type { Grid } from '../utils/conway';
@@ -14,7 +15,6 @@ import styles from './ConwayBackground.module.css';
 
 export function ConwayBackground({
   updateInterval,
-  density,
   height,
 }: ConwayBackgroundProps): React.JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -25,6 +25,7 @@ export function ConwayBackground({
   const lastUpdateRef = useRef<number>(0);
   const animationFrameRef = useRef<number | null>(null);
   const cellSize = useResponsiveCellSize();
+  const density = useResponsiveDensity();
 
   // Measure container dimensions using custom hook
   const canvasDimensions = useContainerDimensions(containerRef);

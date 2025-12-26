@@ -9,7 +9,6 @@ import type { SectionWidth } from './theme';
  */
 export interface ConwayBackgroundProps {
   readonly updateInterval: number;
-  readonly density: number;
   readonly height?: string | number;
 }
 
