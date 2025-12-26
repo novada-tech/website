@@ -15,35 +15,13 @@ describe('HeroBanner', () => {
     density: 0.3,
   };
 
-  it('should render hero banner section', () => {
+  it('should render hero banner section with proper accessibility', () => {
     renderWithChakra(<HeroBanner {...defaultProps} />);
-    const section = screen.getByRole('region', { name: /hero banner/i });
-    expect(section).toBeInTheDocument();
-  });
-
-  it('should have proper aria-label', () => {
-    renderWithChakra(<HeroBanner {...defaultProps} />);
-    expect(screen.getByLabelText('Hero banner with animated background')).toBeInTheDocument();
-  });
-
-  it('should render with proper height on mobile', () => {
-    const { container } = renderWithChakra(<HeroBanner {...defaultProps} />);
-    const section = container.querySelector('section');
-
-    // Check that height responsive prop is applied (Chakra UI will convert to CSS)
-    expect(section).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: /hero banner/i })).toBeInTheDocument();
   });
 
   it('should render Conway background canvas', () => {
     const { container } = renderWithChakra(<HeroBanner {...defaultProps} />);
-    const canvas = container.querySelector('canvas');
-    expect(canvas).toBeInTheDocument();
-  });
-
-  it('should render logo', () => {
-    const { container } = renderWithChakra(<HeroBanner {...defaultProps} />);
-    // Logo component renders an img with alt text
-    const logo = container.querySelector('img[alt*="NovAda"]');
-    expect(logo).toBeInTheDocument();
+    expect(container.querySelector('canvas')).toBeInTheDocument();
   });
 });

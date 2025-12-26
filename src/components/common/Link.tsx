@@ -9,14 +9,6 @@ interface LinkProps extends Omit<ChakraLinkProps, 'color'> {
   readonly external?: boolean;
 }
 
-/**
- * Reusable link component with consistent styling
- * Automatically adds external link indicators and proper attributes
- *
- * @param children - Link text content
- * @param href - Link URL
- * @param external - Whether link opens in new tab (default: false)
- */
 export const Link = memo(function Link({
   children,
   href,

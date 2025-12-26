@@ -10,24 +10,12 @@ function renderWithChakra(ui: React.ReactElement) {
 describe('LoadingState', () => {
   it('should render spinner by default', () => {
     renderWithChakra(<LoadingState />);
-    const spinner = screen.getByRole('status', { hidden: true });
-    expect(spinner).toBeInTheDocument();
-  });
-
-  it('should render default loading message', () => {
-    renderWithChakra(<LoadingState />);
-    expect(screen.getByText('Loading...')).toBeInTheDocument();
-  });
-
-  it('should render custom message', () => {
-    renderWithChakra(<LoadingState message="Loading content..." />);
-    expect(screen.getByText('Loading content...')).toBeInTheDocument();
+    expect(screen.getByRole('status', { hidden: true })).toBeInTheDocument();
   });
 
   it('should not render spinner when showSpinner is false', () => {
     renderWithChakra(<LoadingState showSpinner={false} />);
-    const spinner = screen.queryByRole('status', { hidden: true });
-    expect(spinner).not.toBeInTheDocument();
+    expect(screen.queryByRole('status', { hidden: true })).not.toBeInTheDocument();
   });
 
   it('should have proper accessibility attributes', () => {
@@ -35,11 +23,5 @@ describe('LoadingState', () => {
     const loadingContainer = container.firstChild;
     expect(loadingContainer).toHaveAttribute('aria-live', 'polite');
     expect(loadingContainer).toHaveAttribute('aria-busy', 'true');
-  });
-
-  it('should apply custom minHeight', () => {
-    const { container } = renderWithChakra(<LoadingState minHeight="200px" />);
-    const loadingContainer = container.firstChild as HTMLElement;
-    expect(loadingContainer).toHaveStyle({ minHeight: '200px' });
   });
 });

@@ -8,13 +8,6 @@ interface ThemeToggleProps {
   readonly onToggle: () => void;
 }
 
-/**
- * Theme toggle button component
- * Switches between light and dark mode
- *
- * @param theme - Current theme ('light' or 'dark')
- * @param onToggle - Callback function to toggle theme
- */
 export const ThemeToggle = memo(function ThemeToggle({
   theme,
   onToggle,

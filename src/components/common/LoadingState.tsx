@@ -8,19 +8,6 @@ interface LoadingStateProps {
   readonly showSpinner?: boolean;
 }
 
-/**
- * Loading state component with optional message
- * Displays a centered spinner with optional loading message
- *
- * @param message - Optional loading message to display
- * @param minHeight - Minimum height of the loading container (default: "100px")
- * @param showSpinner - Whether to show the spinner (default: true)
- *
- * @example
- * ```tsx
- * <LoadingState message="Loading content..." minHeight="50vh" />
- * ```
- */
 export const LoadingState = memo(function LoadingState({
   message = 'Loading...',
   minHeight = '100px',

@@ -1,22 +1,5 @@
 import { useState, useEffect } from 'react';
 
-/**
- * Hook to detect when custom fonts have finished loading
- * Uses the Font Loading API to check font load status
- *
- * @returns boolean indicating whether all fonts have loaded
- *
- * @example
- * ```tsx
- * const fontsLoaded = useFontsLoaded();
- *
- * if (!fontsLoaded) {
- *   return <LoadingState message="Loading fonts..." />;
- * }
- *
- * return <YourContent />;
- * ```
- */
 export function useFontsLoaded(): boolean {
   const [fontsLoaded, setFontsLoaded] = useState(false);
 

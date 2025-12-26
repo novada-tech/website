@@ -4,13 +4,6 @@ import { BodyText } from './BodyText';
 import { COLORS, FONTS, FONT_WEIGHTS, HEADING_SIZE } from '../../config/layout';
 import type { ProjectCardProps } from '../../types/components';
 
-/**
- * Reusable project card component
- * Displays a project with title and description in a card layout
- *
- * @param title - Project title
- * @param description - Project description
- */
 export const ProjectCard = memo(function ProjectCard({ title, description }: ProjectCardProps): React.JSX.Element {
   return (
     <Box

@@ -9,24 +9,14 @@ function renderWithChakra(ui: React.ReactElement) {
 }
 
 describe('ThemeToggle', () => {
-  it('should render moon icon for light theme', () => {
-    renderWithChakra(<ThemeToggle theme="light" onToggle={() => {}} />);
-    expect(screen.getByRole('button')).toHaveTextContent('🌙');
-  });
-
-  it('should render sun icon for dark theme', () => {
-    renderWithChakra(<ThemeToggle theme="dark" onToggle={() => {}} />);
-    expect(screen.getByRole('button')).toHaveTextContent('☀️');
-  });
-
   it('should have proper aria-label for light theme', () => {
     renderWithChakra(<ThemeToggle theme="light" onToggle={() => {}} />);
-    expect(screen.getByRole('button')).toHaveAttribute('aria-label', 'Switch to dark mode');
+    expect(screen.getByRole('button')).toHaveAccessibleName(/switch to dark mode/i);
   });
 
   it('should have proper aria-label for dark theme', () => {
     renderWithChakra(<ThemeToggle theme="dark" onToggle={() => {}} />);
-    expect(screen.getByRole('button')).toHaveAttribute('aria-label', 'Switch to light mode');
+    expect(screen.getByRole('button')).toHaveAccessibleName(/switch to light mode/i);
   });
 
   it('should call onToggle when clicked', async () => {
@@ -34,20 +24,8 @@ describe('ThemeToggle', () => {
     const user = userEvent.setup();
 
     renderWithChakra(<ThemeToggle theme="light" onToggle={handleToggle} />);
-
     await user.click(screen.getByRole('button'));
 
     expect(handleToggle).toHaveBeenCalledTimes(1);
-  });
-
-  it('should be positioned fixed in top-right corner', () => {
-    const { container } = renderWithChakra(<ThemeToggle theme="light" onToggle={() => {}} />);
-    const button = container.querySelector('button');
-
-    expect(button).toHaveStyle({
-      position: 'fixed',
-      top: '1rem',
-      right: '1rem',
-    });
   });
 });

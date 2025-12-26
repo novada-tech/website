@@ -11,25 +11,6 @@ interface HeroBannerProps {
   readonly density: number;
 }
 
-/**
- * Hero banner section with Conway's Game of Life background and logo
- * Combines the animated background, logo blocks overlay, and centered logo
- *
- * @param logoPosition - Current position of the logo center
- * @param onLogoPositionChange - Callback when logo position changes
- * @param updateInterval - Conway simulation update interval in milliseconds
- * @param density - Initial density of alive cells (0-1)
- *
- * @example
- * ```tsx
- * <HeroBanner
- *   logoPosition={{ x: 0, y: 0 }}
- *   onLogoPositionChange={handlePositionChange}
- *   updateInterval={CONWAY_UPDATE_INTERVAL}
- *   density={DEFAULT_DENSITY}
- * />
- * ```
- */
 export const HeroBanner = memo(function HeroBanner({
   logoPosition,
   onLogoPositionChange,

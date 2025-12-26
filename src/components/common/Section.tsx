@@ -3,15 +3,6 @@ import { Box, Container } from '@chakra-ui/react';
 import { SECTION_PADDING_Y, CONTAINER_MAX_WIDTH, CONTAINER_PADDING_X, COLORS } from '../../config/layout';
 import type { SectionProps } from '../../types/components';
 
-/**
- * Reusable section wrapper component
- * Provides consistent padding, centering, and container width
- *
- * @param children - Content to render inside the section
- * @param maxWidth - Container width preset: 'text' (720px), 'grid' (960px), or 'full'
- * @param as - HTML element type (section or footer)
- * @param withBorder - Whether to show top border
- */
 export const Section = memo(function Section({
   children,
   maxWidth = 'text',

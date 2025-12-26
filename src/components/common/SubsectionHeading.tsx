@@ -6,12 +6,6 @@ interface SubsectionHeadingProps {
   readonly children: React.ReactNode;
 }
 
-/**
- * Reusable subsection heading component (h3)
- * Provides consistent styling for subsection titles
- *
- * @param children - Heading text content
- */
 export const SubsectionHeading = memo(function SubsectionHeading({
   children,
 }: SubsectionHeadingProps): React.JSX.Element {

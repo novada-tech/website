@@ -5,19 +5,6 @@ interface Dimensions {
   height: number;
 }
 
-/**
- * Custom hook to measure container dimensions
- * Uses ResizeObserver for efficient updates when container size changes
- *
- * @param containerRef - React ref to the container element to measure
- * @returns Object with width and height of the container
- *
- * @example
- * ```tsx
- * const containerRef = useRef<HTMLDivElement>(null);
- * const dimensions = useContainerDimensions(containerRef);
- * ```
- */
 export function useContainerDimensions(
   containerRef: RefObject<HTMLElement | null>
 ): Dimensions {
