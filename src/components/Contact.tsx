@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from './Contact.module.css';
+import { Box, Container, Button, Link, Stack, Heading } from '@chakra-ui/react';
 
 /**
  * Contact component with anti-scraper protection
@@ -24,31 +24,58 @@ export function Contact(): React.JSX.Element {
   };
 
   return (
-    <footer className={styles.footer}>
-      <div className={styles.content}>
-        {!revealed ? (
-          <button
-            onClick={handleReveal}
-            className={styles.revealButton}
-            aria-label="Reveal contact information"
+    <Box
+      as="footer"
+      py={{ base: 16, md: 24 }}
+      bg="var(--color-background)"
+      borderTop="1px solid"
+      borderColor="var(--color-secondary)"
+      display="flex"
+      justifyContent="center"
+    >
+      <Container maxW={{ base: '100%', md: '720px' }} px={{ base: 6, md: 8 }}>
+        <Stack gap={6} align="start">
+          <Heading
+            as="h2"
+            size={{ base: 'xl', md: '2xl' }}
+            color="var(--color-text)"
+            fontFamily="var(--font-heading)"
+            fontWeight="400"
           >
             Contact
-          </button>
-        ) : (
-          <div className={styles.contactInfo}>
-            <a
+          </Heading>
+          {!revealed ? (
+            <Button
+              onClick={handleReveal}
+              bg="var(--color-secondary)"
+              color="white"
+              size={{ base: 'md', md: 'lg' }}
+              fontFamily="var(--font-body)"
+              fontWeight="500"
+              _hover={{ opacity: 0.9 }}
+              _active={{ transform: 'scale(0.98)' }}
+              aria-label="Reveal contact information"
+            >
+              Get in Touch
+            </Button>
+          ) : (
+            <Link
               href={`mailto:${getEmail()}`}
-              className={styles.emailLink}
+              color="var(--color-secondary)"
+              fontSize={{ base: 'lg', md: 'xl' }}
+              fontFamily="var(--font-body)"
+              fontWeight="500"
+              _hover={{ textDecoration: 'underline' }}
               onClick={(e) => {
                 // Additional layer: construct href on click
                 e.currentTarget.href = `mailto:${getEmail()}`;
               }}
             >
               {getEmail()}
-            </a>
-          </div>
-        )}
-      </div>
-    </footer>
+            </Link>
+          )}
+        </Stack>
+      </Container>
+    </Box>
   );
 }

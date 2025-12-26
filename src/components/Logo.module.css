@@ -1,16 +1,8 @@
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 2rem;
-}
-
 .logoWrapper {
   position: relative;
   display: inline-block;
-  max-width: 400px;
-  width: 100%;
+  width: clamp(240px, 40vw, 400px);
+  max-width: 90vw;
 }
 
 .logo {
@@ -24,6 +16,12 @@
 
 @media (max-width: 768px) {
   .logoWrapper {
-    max-width: 280px;
+    width: clamp(200px, 60vw, 300px);
+  }
+}
+
+@media (max-width: 480px) {
+  .logoWrapper {
+    width: clamp(160px, 70vw, 260px);
   }
 }

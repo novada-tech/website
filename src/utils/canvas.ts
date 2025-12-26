@@ -69,24 +69,24 @@ export function fillCanvas(
 /**
  * Converts grid coordinates to pixel position
  */
-export function gridToPixels(gridCoord: number): number {
-  return gridCoord * CELL_SIZE;
+export function gridToPixels(gridCoord: number, cellSize: number = CELL_SIZE): number {
+  return gridCoord * cellSize;
 }
 
 /**
  * Converts pixel position to grid coordinates
  */
-export function pixelsToGrid(pixels: number): number {
-  return Math.floor(pixels / CELL_SIZE);
+export function pixelsToGrid(pixels: number, cellSize: number = CELL_SIZE): number {
+  return Math.floor(pixels / cellSize);
 }
 
 /**
  * Calculates grid dimensions for a given canvas size
  */
-export function calculateGridDimensions(width: number, height: number): { cols: number; rows: number } {
+export function calculateGridDimensions(width: number, height: number, cellSize: number = CELL_SIZE): { cols: number; rows: number } {
   return {
-    cols: Math.ceil(width / CELL_SIZE),
-    rows: Math.ceil(height / CELL_SIZE),
+    cols: Math.ceil(width / cellSize),
+    rows: Math.ceil(height / cellSize),
   };
 }
 
@@ -100,7 +100,8 @@ export function renderConwayGrid(
   grid: Grid,
   bgColor: string,
   cellColor: string,
-  cellAlpha: number = 1
+  cellAlpha: number = 1,
+  cellSize: number = CELL_SIZE
 ): void {
   clearCanvas(canvas, ctx);
   fillCanvas(canvas, ctx, bgColor);
@@ -111,7 +112,7 @@ export function renderConwayGrid(
     const row = grid[i]!;
     for (let j = 0; j < row.length; j++) {
       if (row[j]) {
-        ctx.fillRect(j * CELL_SIZE + GRID_OFFSET_X, i * CELL_SIZE + GRID_OFFSET_Y, CELL_SIZE - CELL_GAP, CELL_SIZE - CELL_GAP);
+        ctx.fillRect(j * cellSize + GRID_OFFSET_X, i * cellSize + GRID_OFFSET_Y, cellSize - CELL_GAP, cellSize - CELL_GAP);
       }
     }
   }
@@ -125,8 +126,9 @@ export function drawCellWithOffset(
   ctx: CanvasRenderingContext2D,
   x: number,
   y: number,
-  color: string
+  color: string,
+  cellSize: number = CELL_SIZE
 ): void {
   ctx.fillStyle = color;
-  ctx.fillRect(x + GRID_OFFSET_X, y + GRID_OFFSET_Y, CELL_SIZE - CELL_GAP, CELL_SIZE - CELL_GAP);
+  ctx.fillRect(x + GRID_OFFSET_X, y + GRID_OFFSET_Y, cellSize - CELL_GAP, cellSize - CELL_GAP);
 }

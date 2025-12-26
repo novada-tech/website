@@ -6,6 +6,11 @@
   --color-background: #ececec;
   --color-text: #211c40;
   --color-accent: #ffffff;
+
+  /* Font families */
+  --font-title: 'Maregraphe Caption', Georgia, serif;
+  --font-heading: 'Maregraphe Caption', Georgia, serif;
+  --font-body: 'Host Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 [data-theme='dark'] {
@@ -25,12 +30,26 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: var(--font-body);
+  font-weight: 500; /* Host Grotesk Medium */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-background);
   color: var(--color-text);
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Apply fonts to headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* Main titles (h1) use Light weight */
+h1 {
+  font-weight: 300;
+}
+
+/* Subtitles/section headings (h2, h3) use Regular weight */
+h2, h3 {
+  font-weight: 400;
 }
