@@ -34,28 +34,47 @@ export const Logo = memo(function Logo({
   );
   const logoRef = useRef<HTMLImageElement>(null);
 
-  // Report logo center position to parent (only on mount/resize, not scroll)
+  /**
+   * Report logo center position to parent component
+   *
+   * This effect calculates the logo's center position relative to its offset parent
+   * (the hero banner section) and reports it via the onPositionChange callback.
+   *
+   * The position is recalculated on:
+   * - Component mount (with small delay to ensure DOM is ready)
+   * - Window resize events
+   * - Logo element size changes (via ResizeObserver)
+   *
+   * IMPORTANT: Uses offsetParent-relative positioning, not viewport positioning.
+   * This ensures the position doesn't change during scroll, maintaining stable
+   * positioning for decorative blocks around the logo.
+   *
+   * Position calculation strategy:
+   * 1. Get logo wrapper's bounding rect (viewport-relative)
+   * 2. Get offset parent's bounding rect (viewport-relative)
+   * 3. Calculate difference to get offset-parent-relative position
+   * 4. Add half width/height to get center point
+   */
   useEffect(() => {
     if (!logoRef.current || !onPositionChange) return;
 
     const updatePosition = (): void => {
       if (!logoRef.current) return;
 
-      // Use offsetLeft/offsetTop which are relative to offsetParent, not viewport
-      // This gives us stable positioning that doesn't change on scroll
       const logo = logoRef.current;
       const wrapper = logo.parentElement;
 
       if (wrapper) {
-        // Get the wrapper's offset relative to its positioned parent
+        // Get the wrapper's bounding rect (viewport-relative)
         const wrapperRect = wrapper.getBoundingClientRect();
 
-        // Find the positioned parent (the banner section)
+        // Find the positioned parent (the banner section with position: relative)
         let offsetParent = wrapper.offsetParent as HTMLElement;
         if (offsetParent) {
           const parentRect = offsetParent.getBoundingClientRect();
 
-          // Calculate center relative to the offset parent
+          // Calculate center position relative to the offset parent
+          // This is stable during scroll since both rects move together
           const centerX = wrapperRect.left - parentRect.left + wrapperRect.width / 2;
           const centerY = wrapperRect.top - parentRect.top + wrapperRect.height / 2;
 
