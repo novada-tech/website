@@ -1,19 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 import { createRandomGrid, createEmptyGrid, nextGenerationInPlace, isGridEmpty } from '../utils/conway';
 import { useResponsiveCellSize } from '../hooks/useResponsiveCellSize';
+import { useContainerDimensions } from '../hooks/useContainerDimensions';
 import { getCSSProperty, renderConwayGrid, calculateGridDimensions } from '../utils/canvas';
 import type { Grid } from '../utils/conway';
+import type { ConwayBackgroundProps } from '../types/components';
 import styles from './ConwayBackground.module.css';
 
-interface ConwayBackgroundProps {
-  updateInterval?: number;
-  density?: number;
-  height?: string | number; // CSS height value (e.g., '100vh', '600px', 600)
-}
-
 export function ConwayBackground({
-  updateInterval = 150,
-  density = 0.25,
+  updateInterval,
+  density,
   height,
 }: ConwayBackgroundProps): React.JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -25,44 +21,20 @@ export function ConwayBackground({
   const animationFrameRef = useRef<number | null>(null);
   const cellSize = useResponsiveCellSize();
 
-  // Use container dimensions if height is specified, otherwise viewport
-  const [canvasDimensions, setCanvasDimensions] = useState({ width: 0, height: 0 });
+  // Measure container dimensions using custom hook
+  const canvasDimensions = useContainerDimensions(containerRef);
 
-  // Measure container dimensions when height prop is provided
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const updateDimensions = (): void => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        // Only update if we have valid dimensions
-        if (rect.width > 0 && rect.height > 0) {
-          setCanvasDimensions({ width: rect.width, height: rect.height });
-        }
-      }
-    };
-
-    // Initial measurement with a small delay to ensure DOM is ready
-    const timeoutId = setTimeout(updateDimensions, 0);
-
-    // Use ResizeObserver for better reactivity
-    const resizeObserver = new ResizeObserver(updateDimensions);
-    resizeObserver.observe(containerRef.current);
-
-    window.addEventListener('resize', updateDimensions);
-
-    return () => {
-      clearTimeout(timeoutId);
-      resizeObserver.disconnect();
-      window.removeEventListener('resize', updateDimensions);
-    };
-  }, [height]);
+  // Memoize grid dimensions calculation
+  const gridDimensions = useMemo(
+    () => calculateGridDimensions(canvasDimensions.width, canvasDimensions.height, cellSize),
+    [canvasDimensions.width, canvasDimensions.height, cellSize]
+  );
 
   // Combined initialization and animation loop
   useEffect(() => {
     if (canvasDimensions.width === 0 || canvasDimensions.height === 0) return;
 
-    const { cols, rows } = calculateGridDimensions(canvasDimensions.width, canvasDimensions.height, cellSize);
+    const { cols, rows } = gridDimensions;
 
     // Initialize double buffer grids if not exists
     if (!gridARef.current || !gridBRef.current) {
@@ -122,7 +94,7 @@ export function ConwayBackground({
 
       // Reset if grid is empty
       if (isGridEmpty(currentGrid)) {
-        const { cols, rows } = calculateGridDimensions(canvasDimensions.width, canvasDimensions.height, cellSize);
+        const { cols, rows } = gridDimensions;
         // Reinitialize current grid
         for (let i = 0; i < rows; i++) {
           for (let j = 0; j < cols; j++) {
@@ -156,7 +128,7 @@ export function ConwayBackground({
       }
       observer.disconnect();
     };
-  }, [canvasDimensions, updateInterval, density, cellSize]);
+  }, [canvasDimensions, gridDimensions, updateInterval, density, cellSize]);
 
   return (
     <div

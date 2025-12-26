@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import type { Theme } from '../types/theme';
 
-export type Theme = 'light' | 'dark';
+export type { Theme };
 
 /**
  * Hook to manage theme state and sync with system preferences

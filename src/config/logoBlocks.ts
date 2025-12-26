@@ -14,7 +14,7 @@ export interface BlockPosition {
  * Coordinates are in grid units (each unit = CELL_SIZE pixels)
  * Adjust these coordinates to customize the layout
  */
-export const defaultBlockPositions: BlockPosition[] = [
+export const defaultBlockPositions: readonly BlockPosition[] = [
   // Top right cluster
   { x: 5, y: -2 },
   { x: 6, y: -1 },
@@ -30,4 +30,4 @@ export const defaultBlockPositions: BlockPosition[] = [
   // Bottom left cluster
   { x: -6, y: 2 },
   { x: -7, y: 1 },
-];
+] as const;

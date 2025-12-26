@@ -1,13 +1,14 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { defaultBlockPositions } from '../config/logoBlocks';
 import { useResponsiveCellSize } from '../hooks/useResponsiveCellSize';
+import { useContainerDimensions } from '../hooks/useContainerDimensions';
 import { useThemeObserver } from '../hooks/useThemeObserver';
 import { getCSSProperty, clearCanvas, gridToPixels, drawCellWithOffset } from '../utils/canvas';
 import type { BlockPosition } from '../config/logoBlocks';
 import styles from './LogoBlocksOverlay.module.css';
 
 interface LogoBlocksOverlayProps {
-  blocks?: BlockPosition[];
+  blocks?: readonly BlockPosition[];
   centerX: number; // Center X coordinate in pixels
   centerY: number; // Center Y coordinate in pixels
 }
@@ -18,41 +19,12 @@ export function LogoBlocksOverlay({
   centerY,
 }: LogoBlocksOverlayProps): React.JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const cellSize = useResponsiveCellSize();
-  const [dimensions, setDimensions] = React.useState({ width: 0, height: 0 });
-
-  // Measure actual canvas dimensions from parent container
-  React.useEffect(() => {
-    if (!canvasRef.current) return;
-
-    const updateDimensions = (): void => {
-      if (canvasRef.current) {
-        const parent = canvasRef.current.parentElement;
-        if (parent) {
-          const rect = parent.getBoundingClientRect();
-          setDimensions({ width: rect.width, height: rect.height });
-        }
-      }
-    };
-
-    updateDimensions();
-
-    const resizeObserver = new ResizeObserver(updateDimensions);
-    const parent = canvasRef.current.parentElement;
-    if (parent) {
-      resizeObserver.observe(parent);
-    }
-
-    window.addEventListener('resize', updateDimensions);
-
-    return () => {
-      resizeObserver.disconnect();
-      window.removeEventListener('resize', updateDimensions);
-    };
-  }, []);
+  const dimensions = useContainerDimensions(containerRef);
 
   // Cache color to avoid repeated getComputedStyle
-  const [blockColor, setBlockColor] = React.useState(getCSSProperty('--color-secondary'));
+  const [blockColor, setBlockColor] = useState(getCSSProperty('--color-secondary'));
 
   // Draw blocks function
   const drawBlocks = useCallback(() => {
@@ -86,12 +58,14 @@ export function LogoBlocksOverlay({
   }, []));
 
   return (
-    <canvas
-      ref={canvasRef}
-      width={dimensions.width}
-      height={dimensions.height}
-      className={styles.canvas}
-      aria-hidden="true"
-    />
+    <div ref={containerRef} className={styles.container}>
+      <canvas
+        ref={canvasRef}
+        width={dimensions.width}
+        height={dimensions.height}
+        className={styles.canvas}
+        aria-hidden="true"
+      />
+    </div>
   );
 }

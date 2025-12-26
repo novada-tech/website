@@ -9,6 +9,7 @@ import { Mission } from './components/Mission';
 import { PreviousWork } from './components/PreviousWork';
 import { Contact } from './components/Contact';
 import { CONWAY_UPDATE_INTERVAL } from './config/constants';
+import { DEFAULT_DENSITY } from './config/conway';
 
 export function App(): React.JSX.Element {
   const [theme, setTheme] = useTheme();
@@ -59,6 +60,7 @@ export function App(): React.JSX.Element {
       >
         <ConwayBackground
           updateInterval={CONWAY_UPDATE_INTERVAL}
+          density={DEFAULT_DENSITY}
           height="100%"
         />
         <LogoBlocksOverlay centerX={logoPosition.x} centerY={logoPosition.y} />

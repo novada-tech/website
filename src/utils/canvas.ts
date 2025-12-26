@@ -6,7 +6,9 @@ import type { Grid } from './conway';
  */
 
 /**
- * Gets the CSS property value from the document
+ * Gets the CSS property value from the document root element
+ * @param propertyName - CSS custom property name (e.g., '--color-primary')
+ * @returns The trimmed string value of the CSS property
  */
 export function getCSSProperty(propertyName: string): string {
   const computedStyle = getComputedStyle(document.documentElement);
@@ -14,48 +16,19 @@ export function getCSSProperty(propertyName: string): string {
 }
 
 /**
- * Draws a single cell on the canvas at the specified grid position
- * Includes gap for visual separation (controlled by CELL_GAP constant)
- */
-export function drawCell(
-  ctx: CanvasRenderingContext2D,
-  gridX: number,
-  gridY: number,
-  color: string,
-  alpha: number = 1
-): void {
-  ctx.fillStyle = color;
-  ctx.globalAlpha = alpha;
-  ctx.fillRect(gridX * CELL_SIZE, gridY * CELL_SIZE, CELL_SIZE - CELL_GAP, CELL_SIZE - CELL_GAP);
-  ctx.globalAlpha = 1;
-}
-
-/**
- * Draws a cell at a specific pixel position (not grid-aligned)
- * Used for positioned elements like logo blocks
- */
-export function drawCellAtPosition(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  color: string,
-  alpha: number = 1
-): void {
-  ctx.fillStyle = color;
-  ctx.globalAlpha = alpha;
-  ctx.fillRect(x, y, CELL_SIZE - CELL_GAP, CELL_SIZE - CELL_GAP);
-  ctx.globalAlpha = 1;
-}
-
-/**
- * Clears the entire canvas
+ * Clears the entire canvas to transparent
+ * @param canvas - The canvas element to clear
+ * @param ctx - The 2D rendering context
  */
 export function clearCanvas(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D): void {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 /**
- * Fills the canvas with a solid color
+ * Fills the entire canvas with a solid color
+ * @param canvas - The canvas element to fill
+ * @param ctx - The 2D rendering context
+ * @param color - CSS color string (e.g., '#ffffff', 'rgb(255,255,255)')
  */
 export function fillCanvas(
   canvas: HTMLCanvasElement,
@@ -68,20 +41,20 @@ export function fillCanvas(
 
 /**
  * Converts grid coordinates to pixel position
+ * @param gridCoord - Grid coordinate value (e.g., 5 means 5 cells)
+ * @param cellSize - Size of each cell in pixels (defaults to CELL_SIZE constant)
+ * @returns Pixel position
  */
 export function gridToPixels(gridCoord: number, cellSize: number = CELL_SIZE): number {
   return gridCoord * cellSize;
 }
 
 /**
- * Converts pixel position to grid coordinates
- */
-export function pixelsToGrid(pixels: number, cellSize: number = CELL_SIZE): number {
-  return Math.floor(pixels / cellSize);
-}
-
-/**
- * Calculates grid dimensions for a given canvas size
+ * Calculates grid dimensions (rows and columns) that fit within the given canvas size
+ * @param width - Canvas width in pixels
+ * @param height - Canvas height in pixels
+ * @param cellSize - Size of each cell in pixels (defaults to CELL_SIZE constant)
+ * @returns Object containing cols and rows counts
  */
 export function calculateGridDimensions(width: number, height: number, cellSize: number = CELL_SIZE): { cols: number; rows: number } {
   return {
@@ -91,8 +64,15 @@ export function calculateGridDimensions(width: number, height: number, cellSize:
 }
 
 /**
- * Renders a Conway grid to the canvas with background and cells
- * Applies grid offsets automatically
+ * Renders a Conway's Game of Life grid to the canvas with background and cells
+ * Applies grid offsets (GRID_OFFSET_X, GRID_OFFSET_Y) automatically
+ * @param canvas - The canvas element to render to
+ * @param ctx - The 2D rendering context
+ * @param grid - 2D boolean array representing the Conway grid state
+ * @param bgColor - Background color CSS string
+ * @param cellColor - Color for alive cells CSS string
+ * @param cellAlpha - Opacity for alive cells (0-1, defaults to 1)
+ * @param cellSize - Size of each cell in pixels (defaults to CELL_SIZE constant)
  */
 export function renderConwayGrid(
   canvas: HTMLCanvasElement,
@@ -120,7 +100,13 @@ export function renderConwayGrid(
 }
 
 /**
- * Draws a cell at a specific pixel position with grid offset applied
+ * Draws a single cell at a specific pixel position with grid offset applied
+ * Used for decorative logo blocks and positioned elements
+ * @param ctx - The 2D rendering context
+ * @param x - X pixel position (before offset is applied)
+ * @param y - Y pixel position (before offset is applied)
+ * @param color - Fill color CSS string
+ * @param cellSize - Size of the cell in pixels (defaults to CELL_SIZE constant)
  */
 export function drawCellWithOffset(
   ctx: CanvasRenderingContext2D,

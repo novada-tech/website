@@ -1,17 +1,12 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, memo } from 'react';
+import type { LogoProps } from '../types/components';
 import styles from './Logo.module.css';
 
-interface LogoProps {
-  logoSrc?: string;
-  logoAlt?: string;
-  onPositionChange?: (x: number, y: number) => void;
-}
-
-export function Logo({
+export const Logo = memo(function Logo({
   logoSrc,
   logoAlt = 'NovAda Logo',
   onPositionChange,
-}: LogoProps): React.JSX.Element {
+}: LogoProps & { logoSrc?: string; logoAlt?: string }): React.JSX.Element {
   const [currentTheme, setCurrentTheme] = useState<string>(
     document.documentElement.getAttribute('data-theme') || 'light'
   );
@@ -90,4 +85,4 @@ export function Logo({
       <img ref={logoRef} src={effectiveLogoSrc} alt={logoAlt} className={styles.logo} />
     </div>
   );
-}
+});

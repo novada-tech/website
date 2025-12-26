@@ -8,20 +8,22 @@
 
 export type Grid = boolean[][];
 
-export interface GridDimensions {
-  rows: number;
-  cols: number;
-}
-
 /**
- * Creates an empty grid with the specified dimensions
+ * Creates an empty grid with all cells dead (false)
+ * @param rows - Number of rows in the grid
+ * @param cols - Number of columns in the grid
+ * @returns A 2D boolean array with all values set to false
  */
 export function createEmptyGrid(rows: number, cols: number): Grid {
   return Array.from({ length: rows }, () => Array(cols).fill(false));
 }
 
 /**
- * Creates a grid with random initial state
+ * Creates a grid with random initial state based on density
+ * @param rows - Number of rows in the grid
+ * @param cols - Number of columns in the grid
+ * @param density - Probability (0-1) that a cell will be alive (defaults to 0.3)
+ * @returns A 2D boolean array with randomly populated cells
  */
 export function createRandomGrid(rows: number, cols: number, density: number = 0.3): Grid {
   return Array.from({ length: rows }, () =>
@@ -31,6 +33,11 @@ export function createRandomGrid(rows: number, cols: number, density: number = 0
 
 /**
  * Counts live neighbors for a cell at position (row, col)
+ * Uses wraparound (toroidal) topology - edges connect to opposite edges
+ * @param grid - The Conway grid to analyze
+ * @param row - Row index of the cell to check
+ * @param col - Column index of the cell to check
+ * @returns Count of living neighbors (0-8)
  */
 export function countNeighbors(grid: Grid, row: number, col: number): number {
   const rows = grid.length;
@@ -54,8 +61,14 @@ export function countNeighbors(grid: Grid, row: number, col: number): number {
 }
 
 /**
- * Computes the next generation of the grid
- * Mutates targetGrid to avoid memory allocations
+ * Computes the next generation of Conway's Game of Life
+ * Mutates targetGrid in place to avoid memory allocations (efficient for animations)
+ * Applies standard Conway rules:
+ * - Live cell with 2-3 neighbors: stays alive
+ * - Dead cell with exactly 3 neighbors: becomes alive
+ * - All other cells: die or stay dead
+ * @param sourceGrid - The current generation grid (read-only)
+ * @param targetGrid - The grid to write the next generation to (will be mutated)
  */
 export function nextGenerationInPlace(sourceGrid: Grid, targetGrid: Grid): void {
   const rows = sourceGrid.length;
@@ -91,6 +104,9 @@ export function nextGeneration(grid: Grid): Grid {
 
 /**
  * Checks if the grid is empty (all cells dead)
+ * Used to detect when the simulation has died out and needs reseeding
+ * @param grid - The Conway grid to check
+ * @returns True if all cells are dead, false if any cell is alive
  */
 export function isGridEmpty(grid: Grid): boolean {
   return grid.every(row => row.every(cell => !cell));
