@@ -3,6 +3,7 @@ import { Button, Link, Stack, HStack } from '@chakra-ui/react';
 import { Section } from './common/Section';
 import { SectionHeading } from './common/SectionHeading';
 import { CONTENT_GAP, COLORS, FONTS, FONT_WEIGHTS, TEXT_SIZE } from '../config/layout';
+import {BodyText} from "./common/BodyText.tsx";
 
 const EMAIL_PARTS = {
   user: 'simon.cockx',
@@ -32,6 +33,7 @@ export function Contact(): React.JSX.Element {
     <Section maxWidth="text" as="footer" withBorder>
       <Stack gap={CONTENT_GAP.MEDIUM} align="start">
         <SectionHeading>Contact</SectionHeading>
+        <BodyText>Get in touch!</BodyText>
         <HStack gap={CONTENT_GAP.MEDIUM} flexWrap="wrap" align="center">
           <Link
             href="https://www.linkedin.com/in/simon-cockx-4110b3239/"
