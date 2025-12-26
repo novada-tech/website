@@ -11,6 +11,9 @@
   --font-title: 'Maregraphe Caption', Georgia, serif;
   --font-heading: 'Maregraphe Caption', Georgia, serif;
   --font-body: 'Host Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Transition duration for theme switching */
+  --theme-transition-duration: 0.3s;
 }
 
 [data-theme='dark'] {
@@ -29,6 +32,11 @@
   box-sizing: border-box;
 }
 
+/* Smooth theme transitions on root for all CSS custom properties */
+:root {
+  transition: all var(--theme-transition-duration) ease;
+}
+
 body {
   font-family: var(--font-body);
   font-weight: 500; /* Host Grotesk Medium */
@@ -36,7 +44,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-background);
   color: var(--color-text);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color var(--theme-transition-duration) ease,
+              color var(--theme-transition-duration) ease;
 }
 
 /* Apply fonts to headings */
@@ -52,4 +61,21 @@ h1 {
 /* Subtitles/section headings (h2, h3) use Regular weight */
 h2, h3 {
   font-weight: 400;
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 3px;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+  text-decoration: underline;
 }

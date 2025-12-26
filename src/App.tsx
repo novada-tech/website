@@ -1,10 +1,12 @@
 import { useState, useCallback, lazy, Suspense } from 'react';
 import { Box, Stack } from '@chakra-ui/react';
 import { useTheme } from './hooks/useTheme';
-import { ConwayBackground } from './components/ConwayBackground';
-import { LogoBlocksOverlay } from './components/LogoBlocksOverlay';
-import { Logo } from './components/Logo';
+import { useFontsLoaded } from './hooks/useFontsLoaded';
+import { HeroBanner } from './components/HeroBanner';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
+import { SkipNav } from './components/common/SkipNav';
+import { ThemeToggle } from './components/common/ThemeToggle';
+import { LoadingState } from './components/common/LoadingState';
 import { CONWAY_UPDATE_INTERVAL } from './config/constants';
 import { DEFAULT_DENSITY } from './config/conway';
 
@@ -16,6 +18,7 @@ const Contact = lazy(() => import('./components/Contact').then(m => ({ default: 
 
 export function App(): React.JSX.Element {
   const [theme, setTheme] = useTheme();
+  const fontsLoaded = useFontsLoaded();
   const [logoPosition, setLogoPosition] = useState({ x: 0, y: 0 });
 
   const toggleTheme = (): void => {
@@ -27,70 +30,42 @@ export function App(): React.JSX.Element {
     setLogoPosition({ x, y });
   }, []);
 
+  // Show loading state while fonts are loading
+  if (!fontsLoaded) {
+    return (
+      <Box minH="100vh" bg="var(--color-background)">
+        <LoadingState message="Loading..." minHeight="100vh" />
+      </Box>
+    );
+  }
+
   return (
     <Box minH="100vh" bg="var(--color-background)">
-      <button
-        onClick={toggleTheme}
-        style={{
-          position: 'fixed',
-          top: '1rem',
-          right: '1rem',
-          background: 'var(--color-secondary)',
-          color: 'white',
-          border: 'none',
-          borderRadius: '50%',
-          width: '48px',
-          height: '48px',
-          cursor: 'pointer',
-          zIndex: 100,
-          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
-          fontSize: '1.5rem',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-        aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-      >
-        {theme === 'light' ? '🌙' : '☀️'}
-      </button>
+      <SkipNav />
+      <ThemeToggle theme={theme} onToggle={toggleTheme} />
 
       {/* Hero Banner with Conway Background and Logo */}
       <ErrorBoundary>
-        <Box
-          as="section"
-          position="relative"
-          h={{ base: '70vh', md: '80vh' }}
-          overflow="hidden"
-        >
-          <ConwayBackground
-            updateInterval={CONWAY_UPDATE_INTERVAL}
-            density={DEFAULT_DENSITY}
-            height="100%"
-          />
-          <LogoBlocksOverlay centerX={logoPosition.x} centerY={logoPosition.y} />
-          <Box
-            position="relative"
-            zIndex={1}
-            h="100%"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Logo onPositionChange={handleLogoPositionChange} />
-          </Box>
-        </Box>
+        <HeroBanner
+          logoPosition={logoPosition}
+          onLogoPositionChange={handleLogoPositionChange}
+          updateInterval={CONWAY_UPDATE_INTERVAL}
+          density={DEFAULT_DENSITY}
+        />
       </ErrorBoundary>
 
       {/* Scrollable Content Sections */}
       <ErrorBoundary>
-        <Stack gap={0}>
-          <Suspense fallback={<Box minH="50vh" />}>
-            <About />
-            <Mission />
-            <PreviousWork />
-            <Contact />
-          </Suspense>
-        </Stack>
+        <Box as="main" id="main-content">
+          <Stack gap={0}>
+            <Suspense fallback={<LoadingState message="Loading content..." minHeight="50vh" />}>
+              <About />
+              <Mission />
+              <PreviousWork />
+              <Contact />
+            </Suspense>
+          </Stack>
+        </Box>
       </ErrorBoundary>
     </Box>
   );

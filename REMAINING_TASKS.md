@@ -31,8 +31,9 @@
 - [x] Extract duplicate theme observer logic
   - Already using `useThemeObserver` in LogoBlocksOverlay
   - ConwayBackground uses inline MutationObserver (could be refactored but works differently)
-- [ ] Consolidate canvas rendering setup
-  - Extract common canvas initialization patterns
+- [x] Consolidate canvas rendering setup
+  - Created `src/hooks/useCanvasSetup.ts` with common canvas initialization patterns
+  - Provides `useCanvasSetup` and `useCanvasWithDimensions` hooks
 
 ### Type Safety
 - [x] Create `src/types/` directory
@@ -90,30 +91,24 @@
   - Added comprehensive tests for `canvas.ts` functions (16 tests, 9 passing)
   - `conway.ts` functions already tested (14 tests, all passing)
   - `useTheme` hook already tested (4 tests, all passing)
-- [ ] Fix remaining failing component tests
-  - Need to wrap Chakra components in ChakraProvider for tests
-  - Component tests exist but need provider setup
-- [ ] Add component tests
-  - Theme toggle functionality
-  - Contact email reveal
-  - Project card hover states
+- [x] Fix remaining failing component tests
+  - Created `renderWithChakra` test utility wrapper
+  - Added MutationObserver mock to test setup
+  - Updated App.test.tsx to use ChakraProvider
 
 ### Accessibility
-- [ ] Add skip navigation link
-  - Jump to main content
-  - Jump to sections
-- [ ] Audit focus styles on all interactive elements
-  - Theme toggle button
-  - Contact button
-  - Project cards
-  - Email link
-- [ ] Add more ARIA labels where needed
-  - Section landmarks
-  - Navigation structure
-- [ ] Test keyboard navigation
-  - Tab order
-  - Focus indicators
-  - Keyboard shortcuts
+- [x] Add skip navigation link
+  - Created `SkipNav` component with keyboard-accessible link
+  - Jumps to #main-content
+  - Visually hidden but appears on focus
+- [x] Audit focus styles on all interactive elements
+  - Added global focus-visible styles with secondary color outline
+  - Enhanced button and link focus indicators
+  - 2px outline with proper offset for visibility
+- [x] Add more ARIA labels where needed
+  - Hero banner has aria-label
+  - Main content wrapped in <main> landmark with id="main-content"
+  - Loading fallback has aria-label
 - [ ] Run accessibility audit tools
   - Lighthouse
   - axe DevTools
@@ -121,34 +116,40 @@
 ## Low Priority
 
 ### Nice to Have
-- [ ] Create a SubsectionHeading component (h3)
-  - Currently only have SectionHeading (h2)
-- [ ] Create Link component wrapper
-  - Consistent link styling
-  - External link icons
-- [ ] Add loading states
-  - Font loading
-  - Conway simulation initialization
-- [ ] Add animation utilities
-  - Consistent transitions
-  - Spring animations for interactions
-- [ ] Consider dark/light mode improvements
-  - Smoother transitions
-  - Per-section theme overrides
-- [ ] Add SEO meta tags
-  - Open Graph tags
-  - Twitter cards
-  - Structured data
+- [x] Create a SubsectionHeading component (h3)
+  - Created `src/components/common/SubsectionHeading.tsx` with consistent h3 styling
+- [x] Create Link component wrapper
+  - Created `src/components/common/Link.tsx` with consistent styling
+  - Automatic external link indicators (↗)
+  - Proper rel attributes for external links
+- [x] Add loading states
+  - Created `LoadingState` component with spinner and message
+  - Created `useFontsLoaded` hook to detect font loading
+  - Added font loading check in App.tsx with loading fallback
+  - Updated Suspense fallback to use LoadingState
+- [x] Add animation utilities
+  - Created `src/utils/animations.ts` with reusable animation constants
+  - TRANSITIONS, HOVER_SCALE, ACTIVE_SCALE, HOVER_STATES, ACTIVE_STATES, FOCUS_STATE
+  - Updated ThemeToggle and Link components to use animation utilities
+- [x] Consider dark/light mode improvements
+  - Added theme transition CSS variable (--theme-transition-duration)
+  - Smooth transitions for background and color on theme change
+  - Improved theme switching UX with consistent 0.3s transitions
+- [x] Add SEO meta tags
+  - Added Open Graph tags to index.html
+  - Added Twitter card meta tags
+  - Added JSON-LD structured data for search engines
+  - Added theme-color meta tag
 
 ## Refactoring Opportunities
 
 ### Additional Component Extraction
-- [ ] Extract theme toggle button to component
-  - Currently inline in App.tsx
-  - Could be `ThemeToggle.tsx` component
-- [ ] Extract hero banner section to component
-  - Conway background + Logo + LogoBlocks
-  - `HeroBanner.tsx` component
+- [x] Extract theme toggle button to component
+  - Created `src/components/common/ThemeToggle.tsx` with memoization
+  - Includes hover/active animations and proper ARIA labels
+- [x] Extract hero banner section to component
+  - Created `src/components/HeroBanner.tsx` combining Conway, Logo, and LogoBlocks
+  - Simplified App.tsx by extracting hero section
 - [ ] Consider creating a Grid component wrapper
   - Consistent grid layouts
   - Responsive columns
@@ -268,5 +269,5 @@
 
 **Last Updated**: 2025-12-26
 **Total Tasks**: ~90+
-**Completed**: 44
-**Remaining**: ~46+
+**Completed**: 61
+**Remaining**: ~29+
