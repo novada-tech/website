@@ -2,6 +2,21 @@
 
 ## High Priority
 
+### Maintainability Improvements
+- [ ] Reduce excessive documentation burden
+  - Remove redundant JSDoc from self-explanatory functions and components
+  - Simplify README files to focus on structure and patterns only
+  - Keep only non-obvious documentation (complex algorithms, edge cases)
+  - Update existing JSDoc to follow new minimal guidelines
+- [ ] Improve test maintainability
+  - Remove tests that check static content (text labels, headings)
+  - Focus tests on behavior: interactions, state changes, logic
+  - Use semantic queries (`getByRole`, `getByLabelText`) instead of text matching
+  - Remove brittle tests that break on non-functional changes
+- [ ] Establish single source of truth
+  - Eliminate duplication between code, tests, JSDoc, and READMEs
+  - Ensure changes only require updating one place (the code)
+
 ### Configuration & Constants
 - [x] Update `ConwayBackground` to use constants from config file instead of default parameters
   - Already using `CONWAY_UPDATE_INTERVAL` and `DEFAULT_DENSITY` from config
@@ -80,10 +95,6 @@
 - [x] Add fallback UI for font loading failures
   - System font fallbacks already configured in CSS (Georgia for headings, system fonts for body)
   - `font-display: swap` already set for all @font-face declarations
-- [ ] Add PropTypes or Zod validation for runtime checks
-  - Validate canvas dimensions before rendering
-  - Validate color values
-  - Validate configuration constants
 
 ### Testing
 - [x] Set up testing framework (Vitest is already configured)
@@ -95,6 +106,11 @@
   - Created `renderWithChakra` test utility wrapper
   - Added MutationObserver mock to test setup
   - Updated App.test.tsx to use ChakraProvider
+- [x] Add component tests for new components
+  - Created tests for LoadingState component (6 tests)
+  - Created tests for ThemeToggle component (6 tests)
+  - Created tests for HeroBanner component (5 tests)
+  - Created tests for useFontsLoaded hook (5 tests)
 
 ### Accessibility
 - [x] Add skip navigation link
@@ -213,12 +229,16 @@
   - Document breaking changes
 
 ### Developer Documentation
+- [x] Update module README files
+  - Updated `src/components/README.md` with new components (HeroBanner, LoadingState, ThemeToggle, Link, SubsectionHeading)
+  - Updated `src/hooks/README.md` with new hooks (useFontsLoaded, useCanvasSetup)
+  - Updated `src/utils/README.md` with animations module documentation
 - [ ] Document Conway simulation algorithm
-  - How it works
-  - Performance considerations
+  - How it works (partially documented in utils/README.md)
+  - Performance considerations (partially documented)
   - Configuration options
 - [ ] Document logo positioning system
-  - How coordinates are calculated
+  - How coordinates are calculated (partially documented in Logo.tsx JSDoc)
   - Why relative positioning is used
 - [ ] Document responsive design strategy
   - Breakpoint decisions
@@ -269,5 +289,5 @@
 
 **Last Updated**: 2025-12-26
 **Total Tasks**: ~90+
-**Completed**: 61
-**Remaining**: ~29+
+**Completed**: 64
+**Remaining**: ~26+

@@ -4,6 +4,38 @@ Utility functions for canvas rendering and Conway's Game of Life simulation.
 
 ## Modules
 
+### `animations.ts`
+Animation and transition utilities for consistent UI interactions.
+
+#### Constants
+
+**`TRANSITION_DURATIONS`**
+- `FAST`: 0.15s
+- `NORMAL`: 0.3s
+- `SLOW`: 0.5s
+
+**`EASINGS`**
+- `LINEAR`, `EASE_IN`, `EASE_OUT`, `EASE_IN_OUT`
+- `SPRING`: cubic-bezier for bounce effect
+
+**`TRANSITIONS`**
+- Pre-configured transition strings for Chakra UI
+- Example: `TRANSITIONS.SMOOTH` = "all 0.3s ease-in-out"
+
+**`HOVER_SCALE`**
+- Scale transformations for hover states
+- `SUBTLE` (1.02), `SMALL` (1.05), `MEDIUM` (1.1), `LARGE` (1.15)
+
+**`ACTIVE_SCALE`**
+- Scale transformations for pressed states
+- `BUTTON` (0.95), `LINK` (0.98)
+
+**`HOVER_STATES`, `ACTIVE_STATES`, `FOCUS_STATE`**
+- Complete style objects for common interaction states
+- Includes opacity changes and transitions
+
+---
+
 ### `canvas.ts`
 Canvas rendering utilities for grid-based content.
 

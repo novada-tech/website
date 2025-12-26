@@ -182,39 +182,78 @@ export interface Project {
 <Section maxWidth="text">
 ```
 
-## Documentation
+## Documentation Philosophy
 
-### JSDoc Comments
-- **Add JSDoc** to all exported functions and components
-- **Document parameters** with `@param`
-- **Include examples** for complex usage with `@example`
+**IMPORTANT: Minimize documentation burden to maximize maintainability**
 
-### Example
+### Key Principle: Single Source of Truth
+Code should be self-documenting through clear naming and structure. Documentation should complement, not duplicate, the code.
+
+### JSDoc Guidelines - Use Sparingly
+
+**When to add JSDoc:**
+- ✅ Complex algorithms that aren't obvious from code
+- ✅ Non-obvious parameter requirements or edge cases
+- ✅ Public APIs or hooks that other developers will consume
+
+**When NOT to add JSDoc:**
+- ❌ Self-explanatory functions (e.g., `getEmail()`)
+- ❌ Simple components with obvious props
+- ❌ Restating what the code already says
+- ❌ Duplicating TypeScript type information
+
+**Bad (redundant):**
 ```typescript
 /**
- * Custom hook to measure container dimensions
- * Uses ResizeObserver for efficient updates when container size changes
- *
- * @param containerRef - React ref to the container element to measure
- * @returns Object with width and height of the container
- *
- * @example
- * ```tsx
- * const containerRef = useRef<HTMLDivElement>(null);
- * const dimensions = useContainerDimensions(containerRef);
- * ```
+ * Theme toggle button component
+ * Switches between light and dark mode
+ * @param theme - Current theme ('light' or 'dark')
+ * @param onToggle - Callback function to toggle theme
  */
-export function useContainerDimensions(
-  containerRef: RefObject<HTMLElement>
-): Dimensions {
-  // Implementation
-}
+export const ThemeToggle = memo(function ThemeToggle({
+  theme,
+  onToggle,
+}: ThemeToggleProps): React.JSX.Element {
 ```
 
+**Good (minimal, focused):**
+```typescript
+// Only add docs if there's non-obvious behavior
+export const ThemeToggle = memo(function ThemeToggle({
+  theme,
+  onToggle,
+}: ThemeToggleProps): React.JSX.Element {
+```
+
+**Good (documents complexity):**
+```typescript
+/**
+ * Reports logo center position relative to offset parent (not viewport).
+ * This ensures position doesn't change during scroll.
+ */
+useEffect(() => {
+  // Implementation
+}, []);
+```
+
+### README Files - Minimal Structure Only
+
+**What to include:**
+- Directory structure overview
+- Key patterns or conventions specific to that module
+- Links to external resources if needed
+
+**What NOT to include:**
+- ❌ Lists of every file and what it does (duplicates file names)
+- ❌ Function signatures (duplicates code)
+- ❌ API documentation (duplicates JSDoc)
+- ❌ Examples that just restate the code
+
 ### Inline Comments
-- **Complex logic**: Explain why, not what
-- **Algorithms**: Document the approach (e.g., Conway's algorithm, positioning calculations)
-- **Workarounds**: Explain why they're necessary
+- **Use sparingly** - only when code cannot be made self-explanatory
+- **Explain WHY, not WHAT** - the code shows what it does
+- **Focus on non-obvious decisions** - why this approach vs alternatives
+- **Keep comments close to code** - they must be maintained together
 
 ## Error Handling
 
@@ -280,13 +319,56 @@ const handleLogoPositionChange = useCallback((x: number, y: number): void => {
 - **Feature branches** for new work
 - **Descriptive names** - `feature/section-components`, `fix/logo-positioning`
 
-## Testing (Future)
+## Testing Philosophy
+
+**IMPORTANT: Write maintainable tests that focus on behavior, not implementation**
+
+### What to Test
+
+**✅ Test behavior and logic:**
+- User interactions (clicks, input, navigation)
+- State changes and side effects
+- Business logic and calculations
+- Error handling and edge cases
+- Accessibility (keyboard navigation, ARIA)
+
+**❌ Do NOT test:**
+- Static content (text labels, headings, descriptions)
+- CSS classes or styling details
+- Implementation details (internal state, function names)
+- Third-party library behavior (Chakra UI, React)
+- File structure or imports
+
+### Why Avoid Testing Static Content
+
+Testing static content creates maintenance burden:
+```typescript
+// BAD - Brittle test that breaks on content changes
+it('should render title', () => {
+  render(<About />);
+  expect(screen.getByText('About NovAda')).toBeInTheDocument();
+});
+
+// GOOD - Tests behavior, not content
+it('should render about section', () => {
+  render(<About />);
+  expect(screen.getByRole('region', { name: /about/i })).toBeInTheDocument();
+});
+```
+
+### Test Guidelines
+
+1. **Test user-facing behavior** - What users see and interact with
+2. **Use semantic queries** - `getByRole`, `getByLabelText` over `getByText`
+3. **Avoid snapshot tests** - They capture too much and break easily
+4. **Keep tests simple** - If the test is complex, simplify the code
+5. **Test one thing** - Each test should verify one specific behavior
 
 ### Coverage Goals
-- **Unit tests** for utility functions (canvas, conway)
-- **Component tests** for interactive elements
-- **Integration tests** for user flows
-- **Visual regression tests** for UI consistency
+- **Critical paths**: User interactions, data flow
+- **Utility functions**: Pure logic with clear inputs/outputs
+- **Error boundaries**: Error handling and fallback UI
+- **NOT required**: Static presentational components
 
 ## AI Assistance Tips
 
@@ -294,9 +376,11 @@ When working with AI assistants on this codebase:
 
 1. **Reference these guidelines** - Ask AI to follow these standards
 2. **Request refactoring** - Point AI to repeated code or magic values
-3. **Ask for explanations** - Have AI document complex logic
+3. **Minimize documentation** - Only document non-obvious complexity
 4. **Verify TypeScript** - Check that types are explicit and correct
 5. **Review constants** - Ensure no new magic values are introduced
+6. **Focus tests on behavior** - Avoid testing static content or implementation details
+7. **Keep it simple** - Prefer clarity over cleverness
 
 ## Common Patterns
 

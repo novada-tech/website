@@ -5,7 +5,8 @@ This directory contains all React components for the NovAda website.
 ## Structure
 
 ### Main Components
-- **`App.tsx`** - Root application component with theme management and routing
+- **`App.tsx`** - Root application component with theme management, lazy loading, and font loading state
+- **`HeroBanner.tsx`** - Hero section combining Conway background, logo, and decorative blocks
 - **`About.tsx`** - About section component
 - **`Mission.tsx`** - Mission statement section
 - **`PreviousWork.tsx`** - Portfolio/previous work showcase
@@ -19,8 +20,12 @@ Reusable UI components following consistent design patterns:
 
 - **`Section.tsx`** - Reusable section wrapper with responsive width presets
 - **`SectionHeading.tsx`** - Consistent heading component (h2)
+- **`SubsectionHeading.tsx`** - Consistent subsection heading component (h3)
 - **`BodyText.tsx`** - Body text component with size variants
 - **`ProjectCard.tsx`** - Card component for displaying projects
+- **`Link.tsx`** - Link wrapper with consistent styling and external link indicators
+- **`ThemeToggle.tsx`** - Theme toggle button with smooth animations
+- **`LoadingState.tsx`** - Loading state component with spinner and customizable message
 - **`ErrorBoundary.tsx`** - Error boundary for graceful error handling
 - **`SkipNav.tsx`** - Skip navigation link for accessibility
 

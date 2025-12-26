@@ -67,6 +67,46 @@ useThemeObserver(() => {
 - Automatically cleans up observer on unmount
 - Stable callback via useCallback recommended
 
+---
+
+### `useFontsLoaded`
+Detects when custom fonts have finished loading using the Font Loading API.
+
+```tsx
+const fontsLoaded = useFontsLoaded();
+
+if (!fontsLoaded) {
+  return <LoadingState />;
+}
+```
+
+**Returns:** `boolean` - true when all fonts are loaded
+
+**Features:**
+- Uses `document.fonts.ready` promise
+- Fallback for browsers without Font Loading API
+- Handles font loading errors gracefully
+- Prevents FOUT (Flash of Unstyled Text)
+
+---
+
+### `useCanvasSetup`
+Provides common canvas setup logic with refs and context access.
+
+```tsx
+const { canvasRef, getContext, isReady } = useCanvasSetup();
+```
+
+**Returns:**
+- `canvasRef: RefObject<HTMLCanvasElement>` - Canvas element ref
+- `getContext: () => CanvasRenderingContext2D | null` - Get canvas 2D context
+- `isReady: () => boolean` - Check if canvas is ready for rendering
+
+**Features:**
+- Consolidates common canvas initialization patterns
+- Type-safe context access
+- Null-safe operations
+
 ## Hook Patterns
 
 ### Cleanup
