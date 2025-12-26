@@ -20,3 +20,10 @@ export const GRID_OFFSET_Y = -10;
  * Controls how frequently the simulation advances to the next generation
  */
 export const CONWAY_UPDATE_INTERVAL = 1000;
+
+/**
+ * Gap between cells in pixels
+ * Creates white line/separation between cells
+ * 0 = no gap, 1 = 1px gap, 2 = 2px gap, etc.
+ */
+export const CELL_GAP = 0;

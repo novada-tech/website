@@ -1,4 +1,4 @@
-import { CELL_SIZE, GRID_OFFSET_X, GRID_OFFSET_Y } from '../config/constants';
+import { CELL_SIZE, CELL_GAP, GRID_OFFSET_X, GRID_OFFSET_Y } from '../config/constants';
 import type { Grid } from './conway';
 
 /**
@@ -15,7 +15,7 @@ export function getCSSProperty(propertyName: string): string {
 
 /**
  * Draws a single cell on the canvas at the specified grid position
- * Includes 1px gap for visual separation
+ * Includes gap for visual separation (controlled by CELL_GAP constant)
  */
 export function drawCell(
   ctx: CanvasRenderingContext2D,
@@ -26,7 +26,7 @@ export function drawCell(
 ): void {
   ctx.fillStyle = color;
   ctx.globalAlpha = alpha;
-  ctx.fillRect(gridX * CELL_SIZE, gridY * CELL_SIZE, CELL_SIZE - 1, CELL_SIZE - 1);
+  ctx.fillRect(gridX * CELL_SIZE, gridY * CELL_SIZE, CELL_SIZE - CELL_GAP, CELL_SIZE - CELL_GAP);
   ctx.globalAlpha = 1;
 }
 
@@ -43,7 +43,7 @@ export function drawCellAtPosition(
 ): void {
   ctx.fillStyle = color;
   ctx.globalAlpha = alpha;
-  ctx.fillRect(x, y, CELL_SIZE - 1, CELL_SIZE - 1);
+  ctx.fillRect(x, y, CELL_SIZE - CELL_GAP, CELL_SIZE - CELL_GAP);
   ctx.globalAlpha = 1;
 }
 
@@ -111,7 +111,7 @@ export function renderConwayGrid(
     const row = grid[i]!;
     for (let j = 0; j < row.length; j++) {
       if (row[j]) {
-        ctx.fillRect(j * CELL_SIZE + GRID_OFFSET_X, i * CELL_SIZE + GRID_OFFSET_Y, CELL_SIZE - 1, CELL_SIZE - 1);
+        ctx.fillRect(j * CELL_SIZE + GRID_OFFSET_X, i * CELL_SIZE + GRID_OFFSET_Y, CELL_SIZE - CELL_GAP, CELL_SIZE - CELL_GAP);
       }
     }
   }
@@ -128,5 +128,5 @@ export function drawCellWithOffset(
   color: string
 ): void {
   ctx.fillStyle = color;
-  ctx.fillRect(x + GRID_OFFSET_X, y + GRID_OFFSET_Y, CELL_SIZE - 1, CELL_SIZE - 1);
+  ctx.fillRect(x + GRID_OFFSET_X, y + GRID_OFFSET_Y, CELL_SIZE - CELL_GAP, CELL_SIZE - CELL_GAP);
 }
