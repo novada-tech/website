@@ -8,7 +8,7 @@ import {
   renderConwayGrid,
   drawCellWithOffset,
 } from './canvas';
-import { CELL_SIZE } from '../config/constants';
+import { CELL_SIZE } from '../config';
 
 describe('canvas utilities', () => {
   let canvas: HTMLCanvasElement;
