@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Button, Link, Stack, HStack } from '@chakra-ui/react';
-import { Section } from './common/Section';
-import { SectionHeading } from './common/SectionHeading';
-import { CONTENT_GAP, COLORS, FONTS, FONT_WEIGHTS, TEXT_SIZE } from '../config';
-import {BodyText} from "./common/BodyText.tsx";
+import { Section } from '../ui/Section';
+import { SectionHeading } from '../ui/SectionHeading';
+import { CONTENT_GAP, COLORS, FONTS, FONT_WEIGHTS, TEXT_SIZE } from '../../config';
+import { BodyText } from '../ui/BodyText';
 
 const EMAIL_PARTS = {
   user: 'simon.cockx',
@@ -32,11 +32,14 @@ export function Contact(): React.JSX.Element {
   return (
     <Section maxWidth="text" as="footer" withBorder>
       <Stack gap={CONTENT_GAP.MEDIUM} align="start">
-        <SectionHeading>Contact</SectionHeading>
-        <BodyText>Get in touch!</BodyText>
+        <SectionHeading>Get in touch</SectionHeading>
+        <BodyText>
+          If you're facing a genuinely challenging problem — technical, analytical, or conceptual —
+          and want to work through it together, I'd love to hear from you.
+        </BodyText>
         <HStack gap={CONTENT_GAP.MEDIUM} flexWrap="wrap" align="center">
           <Link
-            href="https://www.linkedin.com/in/simon-cockx-4110b3239/"
+            href="https://linkedin.com/in/SimonCockx"
             target="_blank"
             rel="noopener noreferrer"
             display="flex"

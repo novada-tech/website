@@ -18,8 +18,8 @@ export const DEFAULT_DENSITY = {
  * These multipliers are applied to the base CELL_SIZE from config/constants
  */
 export const CELL_SIZE_MULTIPLIERS = {
-  BASE: 0.7, // Mobile devices
-  SM: 0.8, // Small tablets
+  BASE: 0.65, // Mobile devices
+  SM: 0.75, // Small tablets
   MD: 1.0, // Medium screens (desktop)
   LG: 1.0, // Large screens
 } as const;

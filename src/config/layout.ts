@@ -7,8 +7,8 @@
  * Section padding values for vertical spacing
  */
 export const SECTION_PADDING_Y = {
-  base: 16, // Mobile: 4rem
-  md: 24, // Desktop: 6rem
+  base: 8, // Mobile: 2rem
+  md: 12, // Desktop: 3rem
 } as const;
 
 /**

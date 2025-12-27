@@ -9,9 +9,18 @@
   --color-accent: #ffffff;
 
   /* Font families */
-  --font-title: 'Maregraphe Caption', Georgia, serif;
-  --font-heading: 'Maregraphe Caption', Georgia, serif;
-  --font-body: 'Host Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-title: 'Maregraphe Caption', Georgia, 'Times New Roman', Times, serif;
+  --font-heading: 'Maregraphe Caption', Georgia, 'Times New Roman', Times, serif;
+  --font-body:
+          'Host Grotesk',
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          Roboto,
+          Helvetica,
+          Arial,
+          sans-serif;
 
   /* Transition duration for theme switching */
   --theme-transition-duration: 0.3s;

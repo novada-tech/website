@@ -126,20 +126,62 @@ export function renderConwayGrid(
     startCol + Math.ceil(canvas.width / cellSize) + 1
   );
 
-  for (let i = startRow; i < endRow; i++) {
-    const row = grid[i]!;
-    for (let j = startCol; j < endCol; j++) {
+  // Ensure we only iterate over valid array indices
+  const safeStartRow = Math.max(0, startRow);
+  const safeStartCol = Math.max(0, startCol);
+  const safeEndRow = Math.min(grid.length, endRow);
+  const safeEndCol = Math.min(grid[0]?.length ?? 0, endCol);
+
+  for (let i = safeStartRow; i < safeEndRow; i++) {
+    const row = grid[i];
+    if (!row) continue;
+    for (let j = safeStartCol; j < safeEndCol; j++) {
       if (row[j]) {
-        ctx.fillRect(
-          j * cellSize - gridOffsetX + GRID_OFFSET_X,
-          i * cellSize - gridOffsetY + GRID_OFFSET_Y,
-          cellSize - CELL_GAP,
-          cellSize - CELL_GAP
-        );
+        // Round to whole pixels to avoid sub-pixel rendering artifacts
+        const pixelX = Math.round(j * cellSize - gridOffsetX + GRID_OFFSET_X);
+        const pixelY = Math.round(i * cellSize - gridOffsetY + GRID_OFFSET_Y);
+        ctx.fillRect(pixelX, pixelY, cellSize - CELL_GAP, cellSize - CELL_GAP);
       }
     }
   }
   ctx.globalAlpha = 1;
+}
+
+/**
+ * Calculates the grid origin position to center grid cell (0,0) at the logo position
+ *
+ * NO SNAPPING - the logo position is used exactly as-is.
+ *
+ * Conceptual model:
+ * - We have an infinite grid of cells, each of size cellSize x cellSize
+ * - Grid cell (0, 0) should be centered exactly at (logoX, logoY)
+ * - Cell (i, j) has its top-left corner at: gridOrigin + (i * cellSize, j * cellSize)
+ * - Cell (i, j) has its center at: gridOrigin + (i * cellSize + cellSize/2, j * cellSize + cellSize/2)
+ *
+ * Therefore, if cell (0, 0) is centered at (logoX, logoY):
+ *   logoX = gridOriginX + cellSize/2
+ *   logoY = gridOriginY + cellSize/2
+ *
+ * Solving for gridOrigin:
+ *   gridOriginX = logoX - cellSize/2
+ *   gridOriginY = logoY - cellSize/2
+ *
+ * @param logoX - Logo center X position in pixels (exact, no snapping)
+ * @param logoY - Logo center Y position in pixels (exact, no snapping)
+ * @param cellSize - Size of each cell in pixels
+ * @returns The exact position where grid cell (0,0)'s top-left corner should be drawn
+ */
+export function calculateGridOrigin(
+  logoX: number,
+  logoY: number,
+  cellSize: number
+): { gridOriginX: number; gridOriginY: number } {
+  // Grid origin is logo position minus half cell size
+  // This centers cell (0,0) exactly at the logo position
+  const gridOriginX = logoX - cellSize / 2;
+  const gridOriginY = logoY - cellSize / 2;
+
+  return { gridOriginX, gridOriginY };
 }
 
 /**
@@ -159,5 +201,8 @@ export function drawCellWithOffset(
   cellSize: number = CELL_SIZE
 ): void {
   ctx.fillStyle = color;
-  ctx.fillRect(x + GRID_OFFSET_X, y + GRID_OFFSET_Y, cellSize - CELL_GAP, cellSize - CELL_GAP);
+  // Round to whole pixels to avoid sub-pixel rendering artifacts (white lines between cells)
+  const pixelX = Math.round(x + GRID_OFFSET_X);
+  const pixelY = Math.round(y + GRID_OFFSET_Y);
+  ctx.fillRect(pixelX, pixelY, cellSize - CELL_GAP, cellSize - CELL_GAP);
 }

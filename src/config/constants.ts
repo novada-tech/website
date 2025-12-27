@@ -12,8 +12,8 @@ export const CELL_SIZE = 32;
  * Pixel offset for all grid cells (x and y)
  * Allows fine-tuning grid alignment across the entire viewport
  */
-export const GRID_OFFSET_X = 0;
-export const GRID_OFFSET_Y = -10;
+export const GRID_OFFSET_X = 10;
+export const GRID_OFFSET_Y = 0;
 
 /**
  * Update interval for Conway's Game of Life simulation (in milliseconds)

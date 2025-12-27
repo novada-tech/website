@@ -4,18 +4,25 @@ import {
   createEmptyGrid,
   nextGenerationInPlace,
   isGridEmpty,
-} from '../utils/conway';
-import { useResponsiveCellSize } from '../hooks/useResponsiveCellSize';
-import { useResponsiveDensity } from '../hooks/useResponsiveDensity';
-import { useContainerDimensions } from '../hooks/useContainerDimensions';
-import { getCSSProperty, renderConwayGrid, calculateGridDimensions } from '../utils/canvas';
-import type { Grid } from '../utils/conway';
-import type { ConwayBackgroundProps } from '../types/components';
+} from '../../utils/conway';
+import { useResponsiveCellSize } from '../../hooks/useResponsiveCellSize';
+import { useResponsiveDensity } from '../../hooks/useResponsiveDensity';
+import { useContainerDimensions } from '../../hooks/useContainerDimensions';
+import {
+  getCSSProperty,
+  renderConwayGrid,
+  calculateGridDimensions,
+  calculateGridOrigin,
+} from '../../utils/canvas';
+import type { Grid } from '../../utils/conway';
+import type { ConwayBackgroundProps } from '../../types/components';
 import styles from './ConwayBackground.module.css';
 
 export function ConwayBackground({
   updateInterval,
   height,
+  logoX = 0,
+  logoY = 0,
 }: ConwayBackgroundProps): React.JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -30,17 +37,24 @@ export function ConwayBackground({
   // Measure container dimensions using custom hook
   const canvasDimensions = useContainerDimensions(containerRef);
 
-  // Memoize grid dimensions calculation
+  // Calculate grid dimensions (memoized because it involves multiple Math operations)
   const gridDimensions = useMemo(
     () => calculateGridDimensions(canvasDimensions.width, canvasDimensions.height, cellSize),
     [canvasDimensions.width, canvasDimensions.height, cellSize]
   );
 
+  // Simple calculations - no memo needed
+  const { gridOriginX, gridOriginY } = calculateGridOrigin(logoX, logoY, cellSize);
+  const centerCellX = gridDimensions.cols / 2;
+  const centerCellY = gridDimensions.rows / 2;
+  const renderOffsetX = centerCellX * cellSize - gridOriginX;
+  const renderOffsetY = centerCellY * cellSize - gridOriginY;
+
   // Combined initialization and animation loop
   useEffect(() => {
     if (canvasDimensions.width === 0 || canvasDimensions.height === 0) return;
 
-    const { cols, rows, offsetX, offsetY } = gridDimensions;
+    const { cols, rows } = gridDimensions;
 
     // Initialize double buffer grids if not exists
     if (!gridARef.current || !gridBRef.current) {
@@ -73,8 +87,8 @@ export function ConwayBackground({
           cellColor,
           alpha,
           cellSize,
-          offsetX,
-          offsetY
+          renderOffsetX,
+          renderOffsetY
         );
       }
     };
@@ -97,8 +111,8 @@ export function ConwayBackground({
         cellColor,
         alpha,
         cellSize,
-        offsetX,
-        offsetY
+        renderOffsetX,
+        renderOffsetY
       );
     }
 
@@ -148,8 +162,8 @@ export function ConwayBackground({
           cellColor,
           alpha,
           cellSize,
-          offsetX,
-          offsetY
+          renderOffsetX,
+          renderOffsetY
         );
       }
 
@@ -164,7 +178,7 @@ export function ConwayBackground({
       }
       observer.disconnect();
     };
-  }, [canvasDimensions, gridDimensions, updateInterval, density, cellSize]);
+  }, [canvasDimensions, gridDimensions, updateInterval, density, cellSize, renderOffsetX, renderOffsetY]);
 
   return (
     <div

@@ -1,10 +1,16 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { defaultBlockPositions } from '../config';
-import { useResponsiveCellSize } from '../hooks/useResponsiveCellSize';
-import { useContainerDimensions } from '../hooks/useContainerDimensions';
-import { useThemeObserver } from '../hooks/useThemeObserver';
-import { getCSSProperty, clearCanvas, gridToPixels, drawCellWithOffset } from '../utils/canvas';
-import type { BlockPosition } from '../config';
+import { defaultBlockPositions } from '../../config';
+import { useResponsiveCellSize } from '../../hooks/useResponsiveCellSize';
+import { useContainerDimensions } from '../../hooks/useContainerDimensions';
+import { useThemeObserver } from '../../hooks/useThemeObserver';
+import {
+  getCSSProperty,
+  clearCanvas,
+  gridToPixels,
+  drawCellWithOffset,
+  calculateGridOrigin,
+} from '../../utils/canvas';
+import type { BlockPosition } from '../../config';
 import styles from './LogoBlocksOverlay.module.css';
 
 interface LogoBlocksOverlayProps {
@@ -34,17 +40,15 @@ export function LogoBlocksOverlay({
 
     clearCanvas(canvas, ctx);
 
-    // Snap center position to grid for perfect alignment
-    const snappedCenterX =
-      Math.round(centerX / gridToPixels(1, cellSize)) * gridToPixels(1, cellSize);
-    const snappedCenterY =
-      Math.round(centerY / gridToPixels(1, cellSize)) * gridToPixels(1, cellSize);
+    // Calculate where the grid origin should be using the same utility as ConwayBackground
+    const { gridOriginX, gridOriginY } = calculateGridOrigin(centerX, centerY, cellSize);
 
-    // Use for loop instead of forEach for better performance
+    // Draw blocks relative to the grid origin
+    // Each block is at gridOrigin + (block.x * cellSize, block.y * cellSize)
     for (let i = 0; i < blocks.length; i++) {
       const block = blocks[i]!;
-      const pixelX = snappedCenterX + gridToPixels(block.x, cellSize);
-      const pixelY = snappedCenterY + gridToPixels(block.y, cellSize);
+      const pixelX = gridOriginX + gridToPixels(block.x, cellSize);
+      const pixelY = gridOriginY + gridToPixels(block.y, cellSize);
       drawCellWithOffset(ctx, pixelX, pixelY, blockColor, cellSize);
     }
   }, [blocks, dimensions, centerX, centerY, blockColor, cellSize]);

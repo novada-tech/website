@@ -278,12 +278,49 @@ const updateDimensions = (): void => {
 ## Performance
 
 ### Optimization Strategies
-- **Memoize expensive calculations** with `useMemo`
-- **Use React.memo** for pure components
-- **Avoid unnecessary re-renders** with `useCallback`
+- **Use `useMemo` sparingly** - only for expensive calculations (loops, heavy math, array operations)
+- **Avoid `useMemo` for simple operations** - arithmetic, property access, function calls are cheap
+- **Use React.memo** for pure components that re-render frequently
+- **Avoid unnecessary re-renders** with `useCallback` for event handlers passed to memoized children
 - **Lazy load** sections below the fold
 
-### Example
+### When to Use useMemo
+
+**✅ Use useMemo for:**
+- Complex calculations (nested loops, array transformations)
+- Creating new objects/arrays that are used as dependencies
+- Heavy computations that run on every render
+
+**❌ Don't use useMemo for:**
+- Simple arithmetic (`x * 2`, `a + b`)
+- Property access (`obj.prop`, `array[0]`)
+- Simple function calls
+- Values that already come from hooks
+
+### Examples
+
+**Bad (over-optimization):**
+```typescript
+const x = useMemo(() => logoX - cellSize / 2, [logoX, cellSize]);
+const y = useMemo(() => logoY - cellSize / 2, [logoY, cellSize]);
+const sum = useMemo(() => a + b, [a, b]);
+```
+
+**Good (only memoize expensive work):**
+```typescript
+// Simple calculations - no memo needed
+const x = logoX - cellSize / 2;
+const y = logoY - cellSize / 2;
+const sum = a + b;
+
+// Complex calculation - memo justified
+const gridDimensions = useMemo(
+  () => calculateGridDimensions(width, height, cellSize),
+  [width, height, cellSize]
+);
+```
+
+**Event handlers:**
 ```typescript
 const handleLogoPositionChange = useCallback((x: number, y: number): void => {
   setLogoPosition({ x, y });

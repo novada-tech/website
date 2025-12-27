@@ -1,6 +1,9 @@
 import { useRef, useEffect, useState, memo } from 'react';
-import type { LogoProps } from '../types/components';
+import type { LogoProps } from '../../types/components';
 import styles from './Logo.module.css';
+
+const LOGO_LIGHT = '/assets/logo/Novada_Logo_RGB_Donkerblauw.svg';
+const LOGO_DARK = '/assets/logo/Novada_Logo_RGB_Warmlichtgrijs.svg';
 
 export const Logo = memo(function Logo({
   logoSrc,
@@ -27,11 +30,7 @@ export const Logo = memo(function Logo({
   }, []);
 
   // Determine logo src based on theme
-  const effectiveLogoSrc =
-    logoSrc ||
-    (currentTheme === 'dark'
-      ? '/assets/logo/Novada_Logo_RGB_Warmlichtgrijs.svg'
-      : '/assets/logo/Novada_Logo_RGB_Donkerblauw.svg');
+  const effectiveLogoSrc = logoSrc || (currentTheme === 'dark' ? LOGO_DARK : LOGO_LIGHT);
   const logoRef = useRef<HTMLImageElement>(null);
 
   /**
@@ -101,7 +100,15 @@ export const Logo = memo(function Logo({
 
   return (
     <div className={styles.logoWrapper}>
-      <img ref={logoRef} src={effectiveLogoSrc} alt={logoAlt} className={styles.logo} />
+      <img
+        ref={logoRef}
+        src={effectiveLogoSrc}
+        alt={logoAlt}
+        className={styles.logo}
+        loading="eager"
+        width="300"
+        height="91"
+      />
     </div>
   );
 });

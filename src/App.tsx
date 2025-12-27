@@ -2,22 +2,37 @@ import { useState, useCallback, lazy, Suspense } from 'react';
 import { Box, Stack } from '@chakra-ui/react';
 import { useTheme } from './hooks/useTheme';
 import { useFontsLoaded } from './hooks/useFontsLoaded';
-import { HeroBanner } from './components/HeroBanner';
-import { ErrorBoundary } from './components/common/ErrorBoundary';
-import { SkipNav } from './components/common/SkipNav';
-import { ThemeToggle } from './components/common/ThemeToggle';
-import { LoadingState } from './components/common/LoadingState';
+import { HeroBanner } from './components/hero/HeroBanner';
+import { ErrorBoundary } from './components/layout/ErrorBoundary';
+import { SkipNav } from './components/layout/SkipNav';
+import { ThemeToggle } from './components/layout/ThemeToggle';
+import { LoadingState } from './components/ui/LoadingState';
 import { CONWAY_UPDATE_INTERVAL } from './config';
 
 // Lazy load sections below the fold for better initial load performance
-const About = lazy(() => import('./components/About').then((m) => ({ default: m.About })));
-const Mission = lazy(() => import('./components/Mission').then((m) => ({ default: m.Mission })));
+const About = lazy(() => import('./components/sections/About').then((m) => ({ default: m.About })));
+const Mission = lazy(() =>
+  import('./components/sections/Mission').then((m) => ({ default: m.Mission }))
+);
 const PreviousWork = lazy(() =>
-  import('./components/PreviousWork').then((m) => ({
+  import('./components/sections/PreviousWork').then((m) => ({
     default: m.PreviousWork,
   }))
 );
-const Contact = lazy(() => import('./components/Contact').then((m) => ({ default: m.Contact })));
+const WorkingWithTeams = lazy(() =>
+  import('./components/sections/WorkingWithTeams').then((m) => ({
+    default: m.WorkingWithTeams,
+  }))
+);
+const MeetSimon = lazy(() =>
+  import('./components/sections/MeetSimon').then((m) => ({ default: m.MeetSimon }))
+);
+const Boundaries = lazy(() =>
+  import('./components/sections/Boundaries').then((m) => ({ default: m.Boundaries }))
+);
+const Contact = lazy(() =>
+  import('./components/sections/Contact').then((m) => ({ default: m.Contact }))
+);
 
 export function App(): React.JSX.Element {
   const [theme, setTheme] = useTheme();
@@ -64,6 +79,9 @@ export function App(): React.JSX.Element {
               <About />
               <Mission />
               <PreviousWork />
+              <WorkingWithTeams />
+              <MeetSimon />
+              <Boundaries />
               <Contact />
             </Suspense>
           </Stack>

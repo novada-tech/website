@@ -10,6 +10,8 @@ import type { SectionWidth } from './theme';
 export interface ConwayBackgroundProps {
   readonly updateInterval: number;
   readonly height?: string | number;
+  readonly logoX?: number;
+  readonly logoY?: number;
 }
 
 /**
