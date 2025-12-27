@@ -13,7 +13,7 @@ export function MeetSimon(): React.JSX.Element {
           I'm an analytical software engineer with a background in mathematics and physics.
         </BodyText>
         <BodyText>
-          I enjoy deep focus, principled discussions, and working from first principles. I learn
+          I enjoy deep focus, principled discussions — grounded in clear reasoning, explicit trade-offs, and respectful disagreement — and working from first principles. I learn
           quickly, communicate clearly, and care deeply about doing work well.
         </BodyText>
         <BodyText>

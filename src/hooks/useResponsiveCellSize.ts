@@ -1,5 +1,4 @@
-import { CELL_SIZE } from '../config/constants';
-import { CELL_SIZE_MULTIPLIERS } from '../config/conway';
+import { CELL_SIZE, CELL_SIZE_MULTIPLIERS } from '../config';
 import { getBreakpointValue } from '../utils/get-breakpoint';
 
 /**

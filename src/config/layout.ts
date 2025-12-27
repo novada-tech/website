@@ -72,7 +72,7 @@ export const COLORS = {
  */
 export const HEADING_SIZE = {
   SECTION: { base: 'xl', md: '2xl' }, // Section headings (h2)
-  SUBSECTION: 'md', // Subsection headings (h3)
+  SUBSECTION: 'lg', // Subsection headings (h3)
 } as const;
 
 /**
