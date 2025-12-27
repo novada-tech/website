@@ -53,6 +53,7 @@ export const FONT_WEIGHTS = {
   LIGHT: 300, // Maregraphe Caption Light (titles)
   REGULAR: 400, // Maregraphe Caption Regular (headings)
   MEDIUM: 500, // Host Grotesk Medium (body text)
+  BOLD: 700,
 } as const;
 
 /**
@@ -73,6 +74,13 @@ export const COLORS = {
 export const HEADING_SIZE = {
   SECTION: { base: 'xl', md: '2xl' }, // Section headings (h2)
   SUBSECTION: 'lg', // Subsection headings (h3)
+} as const;
+
+/**
+ * Subsection heading styles
+ */
+export const SUBSECTION_HEADING_STYLE = {
+  letterSpacing: '0.04em', // Slightly wider letter spacing
 } as const;
 
 /**

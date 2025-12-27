@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Heading } from '@chakra-ui/react';
-import { COLORS, FONTS, FONT_WEIGHTS, HEADING_SIZE } from '../../config';
+import {COLORS, FONT_WEIGHTS, FONTS, HEADING_SIZE, SUBSECTION_HEADING_STYLE} from '../../config';
 
 interface SubsectionHeadingProps {
   readonly children: React.ReactNode;
@@ -15,7 +15,8 @@ export const SubsectionHeading = memo(function SubsectionHeading({
       size={HEADING_SIZE.SUBSECTION}
       color={COLORS.TEXT}
       fontFamily={FONTS.HEADING}
-      fontWeight={FONT_WEIGHTS.REGULAR}
+      fontWeight={FONT_WEIGHTS.BOLD}
+      letterSpacing={SUBSECTION_HEADING_STYLE.letterSpacing}
     >
       {children}
     </Heading>
