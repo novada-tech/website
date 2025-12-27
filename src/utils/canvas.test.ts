@@ -71,19 +71,30 @@ describe('canvas utilities', () => {
   });
 
   describe('calculateGridDimensions', () => {
-    it('should calculate correct grid dimensions', () => {
+    it('should calculate correct grid dimensions with minimum of 40', () => {
       const result = calculateGridDimensions(320, 240, 32);
-      expect(result).toEqual({ cols: 10, rows: 8 });
+      // 320 * 1.1 / 32 = 11 cols, 240 * 1.1 / 32 = 8.25 = 9 rows
+      // But minimum is 40, so both become 40
+      expect(result.cols).toBe(40);
+      expect(result.rows).toBe(40);
+      expect(result.offsetX).toBeGreaterThan(0);
+      expect(result.offsetY).toBeGreaterThan(0);
     });
 
-    it('should round up for partial cells', () => {
-      const result = calculateGridDimensions(325, 245, 32);
-      expect(result).toEqual({ cols: 11, rows: 8 });
+    it('should calculate grid dimensions at 110% of canvas size', () => {
+      // Use larger canvas where 110% > 40
+      const result = calculateGridDimensions(1600, 1200, 32);
+      // 1600 * 1.1 / 32 = 55 cols, 1200 * 1.1 / 32 = 41.25 = 42 rows
+      expect(result.cols).toBe(55);
+      expect(result.rows).toBe(42);
     });
 
-    it('should use default cell size when not specified', () => {
-      const result = calculateGridDimensions(CELL_SIZE * 5, CELL_SIZE * 3);
-      expect(result).toEqual({ cols: 5, rows: 3 });
+    it('should center canvas in virtual grid', () => {
+      const result = calculateGridDimensions(320, 240, 32);
+      // With 40 cols and 10 visible cols (320/32), offset should be (40-10)/2 * 32 = 480
+      expect(result.offsetX).toBe(480);
+      // With 40 rows and 8 visible rows (240/32), offset should be (40-8)/2 * 32 = 512
+      expect(result.offsetY).toBe(512);
     });
   });
 

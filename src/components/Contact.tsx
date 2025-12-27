@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Link, Stack, HStack } from '@chakra-ui/react';
 import { Section } from './common/Section';
 import { SectionHeading } from './common/SectionHeading';
-import { CONTENT_GAP, COLORS, FONTS, FONT_WEIGHTS, TEXT_SIZE } from '../config/layout';
+import { CONTENT_GAP, COLORS, FONTS, FONT_WEIGHTS, TEXT_SIZE } from '../config';
 import {BodyText} from "./common/BodyText.tsx";
 
 const EMAIL_PARTS = {

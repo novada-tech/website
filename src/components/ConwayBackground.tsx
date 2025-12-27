@@ -40,7 +40,7 @@ export function ConwayBackground({
   useEffect(() => {
     if (canvasDimensions.width === 0 || canvasDimensions.height === 0) return;
 
-    const { cols, rows } = gridDimensions;
+    const { cols, rows, offsetX, offsetY } = gridDimensions;
 
     // Initialize double buffer grids if not exists
     if (!gridARef.current || !gridBRef.current) {
@@ -65,7 +65,17 @@ export function ConwayBackground({
       const ctx = canvas?.getContext('2d');
       const gridToRender = useGridARef.current ? gridARef.current : gridBRef.current;
       if (canvas && ctx && gridToRender) {
-        renderConwayGrid(canvas, ctx, gridToRender, bgColor, cellColor, alpha, cellSize);
+        renderConwayGrid(
+          canvas,
+          ctx,
+          gridToRender,
+          bgColor,
+          cellColor,
+          alpha,
+          cellSize,
+          offsetX,
+          offsetY
+        );
       }
     };
 
@@ -79,7 +89,17 @@ export function ConwayBackground({
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
     if (canvas && ctx && gridARef.current) {
-      renderConwayGrid(canvas, ctx, gridARef.current, bgColor, cellColor, alpha, cellSize);
+      renderConwayGrid(
+        canvas,
+        ctx,
+        gridARef.current,
+        bgColor,
+        cellColor,
+        alpha,
+        cellSize,
+        offsetX,
+        offsetY
+      );
     }
 
     const animate = (timestamp: number): void => {
@@ -120,7 +140,17 @@ export function ConwayBackground({
       const gridToRender = useGridARef.current ? gridARef.current : gridBRef.current;
 
       if (canvas && ctx && gridToRender) {
-        renderConwayGrid(canvas, ctx, gridToRender, bgColor, cellColor, alpha, cellSize);
+        renderConwayGrid(
+          canvas,
+          ctx,
+          gridToRender,
+          bgColor,
+          cellColor,
+          alpha,
+          cellSize,
+          offsetX,
+          offsetY
+        );
       }
 
       animationFrameRef.current = requestAnimationFrame(animate);

@@ -1,5 +1,5 @@
 import { useBreakpointValue } from '@chakra-ui/react';
-import { DEFAULT_DENSITY } from '../config/conway';
+import { DEFAULT_DENSITY } from '../config';
 
 /**
  * Hook that returns a responsive density value based on Chakra UI breakpoints
