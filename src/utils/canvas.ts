@@ -118,24 +118,18 @@ export function renderConwayGrid(
   ctx.globalAlpha = cellAlpha;
 
   // Calculate which portion of the grid to render
-  const startRow = Math.floor(gridOffsetY / cellSize);
-  const startCol = Math.floor(gridOffsetX / cellSize);
+  const startRow = Math.max(0, Math.floor(gridOffsetY / cellSize));
+  const startCol = Math.max(0, Math.floor(gridOffsetX / cellSize));
   const endRow = Math.min(grid.length, startRow + Math.ceil(canvas.height / cellSize) + 1);
   const endCol = Math.min(
     grid[0]?.length ?? 0,
     startCol + Math.ceil(canvas.width / cellSize) + 1
   );
 
-  // Ensure we only iterate over valid array indices
-  const safeStartRow = Math.max(0, startRow);
-  const safeStartCol = Math.max(0, startCol);
-  const safeEndRow = Math.min(grid.length, endRow);
-  const safeEndCol = Math.min(grid[0]?.length ?? 0, endCol);
-
-  for (let i = safeStartRow; i < safeEndRow; i++) {
+  for (let i = startRow; i < endRow; i++) {
     const row = grid[i];
     if (!row) continue;
-    for (let j = safeStartCol; j < safeEndCol; j++) {
+    for (let j = startCol; j < endCol; j++) {
       if (row[j]) {
         // Round to whole pixels to avoid sub-pixel rendering artifacts
         const pixelX = Math.round(j * cellSize - gridOffsetX + GRID_OFFSET_X);

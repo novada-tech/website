@@ -45,8 +45,9 @@ export function ConwayBackground({
 
   // Simple calculations - no memo needed
   const { gridOriginX, gridOriginY } = calculateGridOrigin(logoX, logoY, cellSize);
-  const centerCellX = gridDimensions.cols / 2;
-  const centerCellY = gridDimensions.rows / 2;
+  // Floor center cell to prevent half-cell misalignment when grid dimensions change
+  const centerCellX = Math.floor(gridDimensions.cols / 2);
+  const centerCellY = Math.floor(gridDimensions.rows / 2);
   const renderOffsetX = centerCellX * cellSize - gridOriginX;
   const renderOffsetY = centerCellY * cellSize - gridOriginY;
 
