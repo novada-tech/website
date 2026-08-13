@@ -4,8 +4,15 @@ import { useFontsLoaded } from './useFontsLoaded';
 
 describe('useFontsLoaded', () => {
   beforeEach(() => {
-    // Reset document.fonts mock before each test
     vi.clearAllMocks();
+    // Each test defines the font state it needs. Without this reset the state
+    // set by one test leaks into the next, and jsdom's own document.fonts
+    // reports 'loaded', which is not the state most of these tests describe.
+    Object.defineProperty(document, 'fonts', {
+      value: { status: 'loading', ready: new Promise(() => {}) },
+      writable: true,
+      configurable: true,
+    });
   });
 
   it('should return false initially', () => {
