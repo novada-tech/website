@@ -19,6 +19,9 @@ const PreviousWork = lazy(() =>
     default: m.PreviousWork,
   }))
 );
+const Writing = lazy(() =>
+  import('./components/sections/Writing').then((m) => ({ default: m.Writing }))
+);
 const WorkingWithTeams = lazy(() =>
   import('./components/sections/WorkingWithTeams').then((m) => ({
     default: m.WorkingWithTeams,
@@ -79,6 +82,7 @@ export function App(): React.JSX.Element {
               <About />
               <Mission />
               <PreviousWork />
+              <Writing />
               <WorkingWithTeams />
               <MeetSimon />
               <Boundaries />
