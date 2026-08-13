@@ -4,8 +4,9 @@ export function useFontsLoaded(): boolean {
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
   useEffect(() => {
-    // Check if Font Loading API is available
-    if (!('fonts' in document)) {
+    // Truthiness rather than `'fonts' in document`: the property can be
+    // present and undefined, and reading .status off it then throws.
+    if (!document.fonts) {
       // Fallback: assume fonts are loaded if API is not available
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setFontsLoaded(true);

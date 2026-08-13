@@ -10,6 +10,7 @@ Custom React hooks for the NovAda website.
 - `useThemeObserver` - Observe theme attribute changes
 - `useFontsLoaded` - Detect font loading completion
 - `useCanvasSetup` - Common canvas initialization
+- `useBreakpointValueOrDefault` - Breakpoint lookup that distinguishes an undeclared breakpoint from a small viewport
 
 ## Key Patterns
 

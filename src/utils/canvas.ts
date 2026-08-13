@@ -1,4 +1,11 @@
-import { CELL_SIZE, CELL_GAP, GRID_OFFSET_X, GRID_OFFSET_Y } from '../config';
+import {
+  CELL_SIZE,
+  CELL_GAP,
+  GRID_OFFSET_X,
+  GRID_OFFSET_Y,
+  GRID_OVERSCAN,
+  MIN_GRID_CELLS,
+} from '../config';
 import type { Grid } from './conway';
 
 /**
@@ -63,13 +70,17 @@ export function calculateGridDimensions(
   height: number,
   cellSize: number = CELL_SIZE
 ): { cols: number; rows: number; offsetX: number; offsetY: number } {
-  // Calculate base dimensions at 110% of canvas size
-  const baseCols = Math.ceil((width * 1.1) / cellSize);
-  const baseRows = Math.ceil((height * 1.1) / cellSize);
+  // Multiply before dividing: (width * 1.1) / cellSize loses exactness in
+  // binary and rounds an exact column count up to the next whole column.
+  const baseCols = Math.ceil(
+    (width * GRID_OVERSCAN.NUMERATOR) / (GRID_OVERSCAN.DENOMINATOR * cellSize)
+  );
+  const baseRows = Math.ceil(
+    (height * GRID_OVERSCAN.NUMERATOR) / (GRID_OVERSCAN.DENOMINATOR * cellSize)
+  );
 
-  // Apply minimum of 40 cells
-  const cols = Math.max(40, baseCols);
-  const rows = Math.max(40, baseRows);
+  const cols = Math.max(MIN_GRID_CELLS, baseCols);
+  const rows = Math.max(MIN_GRID_CELLS, baseRows);
 
   // Calculate visible cells (what fits in canvas)
   const visibleCols = Math.ceil(width / cellSize);

@@ -1,12 +1,12 @@
 import { CELL_SIZE, CELL_SIZE_MULTIPLIERS } from '../config';
-import { getBreakpointValue } from '../utils/get-breakpoint';
+import { useBreakpointValueOrDefault } from './useBreakpointValueOrDefault';
 
 /**
  * Hook that returns a responsive cell size based on Chakra UI breakpoints
  * Scales down cell size on smaller screens to maintain proper proportions
  */
 export function useResponsiveCellSize(): number {
-  return getBreakpointValue(
+  return useBreakpointValueOrDefault(
     {
       base: Math.round(CELL_SIZE * CELL_SIZE_MULTIPLIERS.BASE),
       sm: Math.round(CELL_SIZE * CELL_SIZE_MULTIPLIERS.SM),

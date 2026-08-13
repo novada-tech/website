@@ -51,6 +51,18 @@ export default [
 		},
 	},
 	{
+		// Build scripts run in Node and report progress on stdout.
+		files: ['scripts/**/*.ts'],
+		languageOptions: {
+			globals: {
+				...globals.node,
+			},
+		},
+		rules: {
+			'no-console': 'off',
+		},
+	},
+	{
 		files: ['**/*.test.{ts,tsx}', '**/test/**/*.{ts,tsx}'],
 		languageOptions: {
 			globals: {
